@@ -1,0 +1,191 @@
+\documentclass[a4paper, 12pt]{article}
+
+%------------------------------------------------%
+% PENGATURAN PAKET DAN DOKUMEN
+%------------------------------------------------%
+\usepackage[utf8]{inputenc}
+\usepackage[bahasa]{babel}      % Mengatur bahasa Indonesia
+\usepackage{graphicx}           % Untuk memasukkan gambar (logo)
+\usepackage{amsmath}            % Untuk simbol dan lingkungan matematika
+\usepackage{geometry}           % Untuk mengatur margin halaman
+\usepackage{times}              % Menggunakan font Times New Roman
+
+% Pengaturan margin halaman
+\geometry{
+    a4paper,
+    left=25mm,
+    right=25mm,
+    top=25mm,
+    bottom=25mm,
+}
+
+% Pengaturan jarak antar paragraf (non-indented)
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex}
+
+% Menonaktifkan nomor halaman untuk halaman pertama
+\thispagestyle{empty}
+
+%------------------------------------------------%
+% AWAL DOKUMEN
+%------------------------------------------------%
+\begin{document}
+
+%------------------------------------------------%
+% BAGIAN JUDUL (COVER)
+%------------------------------------------------%
+\begin{center}
+    % Logo UGM
+    \includegraphics[width=3cm]{HitamPutih.jpg} % Pastikan file logo ada di folder yang sama
+
+    \vspace{0.1cm} % Memberi jarak vertikal
+
+    % Informasi Universitas
+    \textbf{UNIVERSITAS GADJAH MADA} \\
+    \textbf{FAKULTAS TEKNIK} \\
+    \textbf{DEPARTEMEN TEKNIK ELEKTRO DAN TEKNOLOGI INFORMASI}
+
+    \vspace{0.1cm}
+
+    % Garis horizontal pemisah
+    \rule{\textwidth}{1.2pt}
+
+    \vspace{0.2cm}
+
+    % Judul dan Subjudul
+    \textbf{TUGAS METODE NUMERIS} \\
+    \vspace{0.1cm}
+    \textbf{\Large INTEGRASI NUMERIK DENGAN METODE \\ TRAPEZOIDAL, ROMBERG, ADAPTIVE, DAN GAUSSIAN QUADRATURE} \\
+
+    \vspace{0.25cm}
+
+    % Informasi Penulis
+    Ditulis oleh: \\
+    \vspace{0.1cm}
+    \textbf{\large Kelompok:} \\
+    \vspace{0.1cm}
+    \textbf{1. Nathanael Satya Saputra (NIM NAEL)} \\
+    \textbf{2. Muhammad Nafal Zakin Rustanto (24/535255/TK/59364)} \\
+    \textbf{3. Yohanes Anthony Saputra (NIM ANTHONY)} \\
+    \textbf{4. Johannes De Deo Dimas Aryobimo (NIM BIMO)}
+\end{center}
+
+\vspace{0.5cm} % Jarak pemisah sebelum masuk ke konten laporan
+
+%------------------------------------------------%
+% BAGIAN 1: TEORI TIAP METODE
+%------------------------------------------------%
+\section*{BAGIAN 1: Dasar Teori}
+
+\subsection*{1.1. Integrasi Analitik (Metode Eksak)}
+
+Integrasi analitik adalah metode perhitungan integral menggunakan rumus-rumus kalkulus secara langsung. Metode ini memberikan nilai eksak (tepat) dari suatu integral jika fungsi yang diintegralkan memiliki antiturunan yang dapat ditentukan.
+
+\textbf{Definisi Integral Tentu:}
+
+Integral tentu dari fungsi $f(x)$ pada interval $[a, b]$ didefinisikan sebagai:
+\[
+I = \int_{a}^{b} f(x) \, dx = F(b) - F(a)
+\]
+di mana $F(x)$ adalah antiturunan dari $f(x)$, yaitu $F'(x) = f(x)$.
+
+\textbf{Teorema Fundamental Kalkulus:}
+
+Jika $f(x)$ kontinu pada interval $[a, b]$ dan $F(x)$ adalah antiturunan dari $f(x)$, maka:
+\[
+\int_{a}^{b} f(x) \, dx = F(x) \Big|_{a}^{b} = F(b) - F(a)
+\]
+
+\textbf{Kegunaan:}
+
+Hasil dari integrasi analitik digunakan sebagai nilai pembanding (nilai eksak) untuk mengevaluasi akurasi metode-metode integrasi numerik. Error dari metode numerik dihitung sebagai selisih absolut antara hasil numerik dengan nilai eksak ini.
+
+\subsection*{1.2. Metode Trapezoidal Rule}
+
+[Isi teori tentang metode Trapezoidal Rule]
+
+\subsection*{1.3. Metode Romberg Integration}
+
+[Isi teori tentang metode Romberg Integration]
+
+\subsection*{1.4. Metode Adaptive Integration}
+
+[Isi teori tentang metode Adaptive Integration]
+
+\subsection*{1.5. Metode Gaussian Quadrature}
+
+[Isi teori tentang metode Gaussian Quadrature]
+
+%------------------------------------------------%
+% BAGIAN 2: LANGKAH PERHITUNGAN
+%------------------------------------------------%
+\section*{BAGIAN 2: Langkah Perhitungan}
+
+\subsection*{2.1. Perhitungan Integrasi Analitik (Nilai Eksak)}
+
+\textbf{Fungsi 1: } $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+
+Langkah perhitungan:
+\begin{align*}
+I_1 &= \int_{0}^{\pi/2} \cos(x) \, dx \\
+&= \sin(x) \Big|_{0}^{\pi/2} \\
+&= \sin\left(\frac{\pi}{2}\right) - \sin(0) \\
+&= 1 - 0 \\
+&= 1
+\end{align*}
+
+\textbf{Nilai Eksak: } $I_1 = 1.0$
+
+\vspace{0.3cm}
+
+\textbf{Fungsi 2: } $f(x) = x^2$ pada interval $[0, 1]$
+
+Langkah perhitungan:
+\begin{align*}
+I_2 &= \int_{0}^{1} x^2 \, dx \\
+&= \frac{x^3}{3} \Big|_{0}^{1} \\
+&= \frac{1^3}{3} - \frac{0^3}{3} \\
+&= \frac{1}{3} - 0 \\
+&= \frac{1}{3}
+\end{align*}
+
+\textbf{Nilai Eksak: } $I_2 = 0.333333...$ atau $\frac{1}{3}$
+
+\subsection*{2.2. Perhitungan Metode Trapezoidal Rule}
+
+[Isi langkah-langkah perhitungan menggunakan metode Trapezoidal Rule]
+
+\subsection*{2.3. Perhitungan Metode Romberg Integration}
+
+[Isi langkah-langkah perhitungan menggunakan metode Romberg Integration]
+
+\subsection*{2.4. Perhitungan Metode Adaptive Integration}
+
+[Isi langkah-langkah perhitungan menggunakan metode Adaptive Integration]
+
+\subsection*{2.5. Perhitungan Metode Gaussian Quadrature}
+
+[Isi langkah-langkah perhitungan menggunakan metode Gaussian Quadrature]
+
+%------------------------------------------------%
+% BAGIAN 3: HASIL DAN PERBANDINGAN ERROR
+%------------------------------------------------%
+\section*{BAGIAN 3: Hasil dan Perbandingan Error}
+
+\subsection*{3.1. Hasil Perhitungan}
+
+[Isi tabel hasil perhitungan dari semua metode]
+
+\subsection*{3.2. Perbandingan Error}
+
+[Isi analisis perbandingan error dari semua metode]
+
+\subsection*{3.3. Kesimpulan}
+
+[Isi kesimpulan dari hasil dan perbandingan error]
+
+%------------------------------------------------%
+% AKHIR DOKUMEN
+%------------------------------------------------%
+\end{document}
