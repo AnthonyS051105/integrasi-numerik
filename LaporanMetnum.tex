@@ -103,7 +103,18 @@ Hasil dari integrasi analitik digunakan sebagai nilai pembanding (nilai eksak) u
 
 \subsection*{1.2. Metode Trapezoidal Rule}
 
-[Isi teori tentang metode Trapezoidal Rule]
+Metode \textit{Trapezoidal Rule} merupakan salah satu metode numerik untuk menghitung pendekatan integral tentu dari suatu fungsi yang sulit atau tidak dapat diintegralkan secara analitik. Ide dari metode ini adalah dengan membagi daerah di bawah kurva fungsi $f(x)$ pada interval $[a,b]$ menjadi sejumlah bagian kecil yang berbentuk trapesium, kemudian menjumlahkan luas seluruh trapesium tersebut untuk memperoleh nilai pendekatan dari integral.
+
+Secara matematis, integral tentu dari $f(x)$ pada interval $[a,b]$ dapat ditulis sebagai:
+\[
+\int_a^b f(x) \, dx
+\]
+
+Jika interval $[a,b]$ dibagi menjadi $n$ subinterval yang sama panjang dengan lebar $h = \frac{b-a}{n}$, maka dengan pendekatan \textit{Trapezoidal Rule} nilai integral yakni
+\[
+\int_a^b f(x) \, dx \approx \frac{h}{2} \left[ f(x_0) + 2\sum_{i=1}^{n-1} f(x_i) + f(x_n) \right]
+\]
+dengan $x_0 = a$, $x_n = b$, dan $x_i = a + i \cdot h$ untuk $i = 1, 2, \ldots, n-1$.
 
 \subsection*{1.3. Metode Romberg Integration}
 
