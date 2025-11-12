@@ -21,6 +21,26 @@ def trapezoidal_rule(f, a, b, n):
     return result
 
 
+def richardson_extrapolation(f, a, b, max_level=5):
+    """
+    Metode Richardson Extrapolation
+    Menggunakan trapezoidal rule sebagai basis dan melakukan ekstrapolasi
+    """
+    R = np.zeros((max_level, max_level))
+    
+    # Kolom pertama: hasil trapezoidal rule dengan n = 2^i
+    for i in range(max_level):
+        n = 2**i
+        R[i][0] = trapezoidal_rule(f, a, b, n)
+    
+    # Richardson extrapolation untuk kolom-kolom berikutnya
+    for j in range(1, max_level):
+        for i in range(j, max_level):
+            R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1]) / (4**j - 1)
+    
+    return R
+
+
 def romberg_integration(f, a, b, max_level=5):
     """
     Metode Romberg Integration
@@ -172,8 +192,34 @@ def main():
     print(f"R₂,₂ (n=4):  {trap1_R22:.15f}  | Error: {abs(trap1_R22 - exact1):.6e}")
     print()
     
-    # 2. Romberg Integration
-    print("2. ROMBERG INTEGRATION (Tabel Romberg)")
+    # 2. Richardson Extrapolation
+    print("2. RICHARDSON EXTRAPOLATION")
+    print("-" * 80)
+    
+    richardson1 = richardson_extrapolation(f1, a1, b1, max_level=5)
+    
+    # Tampilkan tabel Richardson
+    print("Tabel Richardson Extrapolation:")
+    print(f"{'i\\j':<6}", end="")
+    for j in range(5):
+        print(f"j={j:<18}", end="")
+    print()
+    
+    for i in range(5):
+        print(f"i={i:<4}", end="")
+        for j in range(5):
+            if j <= i:
+                print(f"{richardson1[i][j]:<20.15f}", end="")
+            else:
+                print(f"{'-':<20}", end="")
+        print()
+    
+    print(f"\nHasil terbaik (R₄,₄): {richardson1[4][4]:.15f}")
+    print(f"Error: {abs(richardson1[4][4] - exact1):.6e}")
+    print()
+    
+    # 3. Romberg Integration
+    print("3. ROMBERG INTEGRATION (Tabel Romberg)")
     print("-" * 80)
     
     romberg1 = romberg_integration(f1, a1, b1, max_level=5)
@@ -198,8 +244,8 @@ def main():
     print(f"Error: {abs(romberg1[4][4] - exact1):.6e}")
     print()
     
-    # 3. Adaptive Integration
-    print("3. ADAPTIVE INTEGRATION (Adaptive Simpson)")
+    # 4. Adaptive Integration
+    print("4. ADAPTIVE INTEGRATION (Adaptive Simpson)")
     print("-" * 80)
     
     adaptive1 = adaptive_simpson(f1, a1, b1)
@@ -207,8 +253,8 @@ def main():
     print(f"Error: {abs(adaptive1 - exact1):.6e}")
     print()
     
-    # 4. Gaussian Quadrature
-    print("4. GAUSSIAN QUADRATURE (5-point)")
+    # 5. Gaussian Quadrature
+    print("5. GAUSSIAN QUADRATURE (5-point)")
     print("-" * 80)
     
     gauss1 = gaussian_quadrature(f1, a1, b1, n=5)
@@ -224,6 +270,7 @@ def main():
             'Trapezoidal R₀,₀',
             'Trapezoidal R₁,₁',
             'Trapezoidal R₂,₂',
+            'Richardson R₄,₄',
             'Romberg R₄,₄',
             'Adaptive Simpson',
             'Gaussian Quadrature'
@@ -232,6 +279,7 @@ def main():
             trap1_R00,
             trap1_R11,
             trap1_R22,
+            richardson1[4][4],
             romberg1[4][4],
             adaptive1,
             gauss1
@@ -240,6 +288,7 @@ def main():
             abs(trap1_R00 - exact1),
             abs(trap1_R11 - exact1),
             abs(trap1_R22 - exact1),
+            abs(richardson1[4][4] - exact1),
             abs(romberg1[4][4] - exact1),
             abs(adaptive1 - exact1),
             abs(gauss1 - exact1)
@@ -277,8 +326,34 @@ def main():
     print(f"R₂,₂ (n=4):  {trap2_R22:.15f}  | Error: {abs(trap2_R22 - exact2):.6e}")
     print()
     
-    # 2. Romberg Integration
-    print("2. ROMBERG INTEGRATION (Tabel Romberg)")
+    # 2. Richardson Extrapolation
+    print("2. RICHARDSON EXTRAPOLATION")
+    print("-" * 80)
+    
+    richardson2 = richardson_extrapolation(f2, a2, b2, max_level=5)
+    
+    # Tampilkan tabel Richardson
+    print("Tabel Richardson Extrapolation:")
+    print(f"{'i\\j':<6}", end="")
+    for j in range(5):
+        print(f"j={j:<18}", end="")
+    print()
+    
+    for i in range(5):
+        print(f"i={i:<4}", end="")
+        for j in range(5):
+            if j <= i:
+                print(f"{richardson2[i][j]:<20.15f}", end="")
+            else:
+                print(f"{'-':<20}", end="")
+        print()
+    
+    print(f"\nHasil terbaik (R₄,₄): {richardson2[4][4]:.15f}")
+    print(f"Error: {abs(richardson2[4][4] - exact2):.6e}")
+    print()
+    
+    # 3. Romberg Integration
+    print("3. ROMBERG INTEGRATION (Tabel Romberg)")
     print("-" * 80)
     
     romberg2 = romberg_integration(f2, a2, b2, max_level=5)
@@ -303,8 +378,8 @@ def main():
     print(f"Error: {abs(romberg2[4][4] - exact2):.6e}")
     print()
     
-    # 3. Adaptive Integration
-    print("3. ADAPTIVE INTEGRATION (Adaptive Simpson)")
+    # 4. Adaptive Integration
+    print("4. ADAPTIVE INTEGRATION (Adaptive Simpson)")
     print("-" * 80)
     
     adaptive2 = adaptive_simpson(f2, a2, b2)
@@ -312,8 +387,8 @@ def main():
     print(f"Error: {abs(adaptive2 - exact2):.6e}")
     print()
     
-    # 4. Gaussian Quadrature
-    print("4. GAUSSIAN QUADRATURE (5-point)")
+    # 5. Gaussian Quadrature
+    print("5. GAUSSIAN QUADRATURE (5-point)")
     print("-" * 80)
     
     gauss2 = gaussian_quadrature(f2, a2, b2, n=5)
@@ -329,6 +404,7 @@ def main():
             'Trapezoidal R₀,₀',
             'Trapezoidal R₁,₁',
             'Trapezoidal R₂,₂',
+            'Richardson R₄,₄',
             'Romberg R₄,₄',
             'Adaptive Simpson',
             'Gaussian Quadrature'
@@ -337,6 +413,7 @@ def main():
             trap2_R00,
             trap2_R11,
             trap2_R22,
+            richardson2[4][4],
             romberg2[4][4],
             adaptive2,
             gauss2
@@ -345,6 +422,7 @@ def main():
             abs(trap2_R00 - exact2),
             abs(trap2_R11 - exact2),
             abs(trap2_R22 - exact2),
+            abs(richardson2[4][4] - exact2),
             abs(romberg2[4][4] - exact2),
             abs(adaptive2 - exact2),
             abs(gauss2 - exact2)
