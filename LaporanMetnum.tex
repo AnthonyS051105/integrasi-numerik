@@ -592,8 +592,6 @@ I_2 &= \int_{0}^{1} x^2 \, dx \\
 
 \subsection*{2.2. Perhitungan Metode Trapezoidal Rule}
 
-\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
-
 Langkah perhitungan dengan program Python:
 
 Pertama, impor library numpy agar mempermudah melakukan perhitungan
@@ -604,17 +602,17 @@ import numpy as np
 
 Kemudian, mendeklarasi fungsi untuk melakukan perhitungan metode \textit{Trapezoidal Rule}, fungsi ini menerimpa input : 
 \begin{itemize}
-    \item f: fungsi yang akan diintegralkan, yaitu $f(x) = \cos(x)$
-    \item a: batas bawah, yaitu $0$
-    \item b: batas atas, yaitu $\frac{\pi}{2}$
-    \item n: jumlah subinterval, yaitu $n = [1, 2, 4]$
+    \item f: fungsi yang akan diintegralkan, yaitu fungsi 1 : $f(x) = \cos(x)$ dan fungsi 2 : $f(x) = x^2$
+    \item a: batas bawah, yaitu $0$ untuk fungsi 1 dan fungsi 2
+    \item b: batas atas, yaitu $\frac{\pi}{2}$ untuk fungsi 1 dan $1$ untuk fungsi 2
+    \item n: jumlah subinterval, yaitu $n = [4,8]$
 \end{itemize}
 
 \begin{lstlisting}
 def trapezoidal_rule(f, a, b, n):
 \end{lstlisting}
 
-Fungsi ini bekerja dengan tiga langkah utama: menentukan lebar trapezoid, menghasilkan grid titik evaluasi, dan mengukur tinggi fungsi di setiap titik - membentuk fondasi untuk perhitungan integral numerik yang akurat.
+Fungsi ini bekerja dengan tiga langkah utama: menentukan lebar trapezoid, menghasilkan grid titik evaluasi, dan mengukur tinggi fungsi di setiap titik
 
 \begin{lstlisting}
     h = (b - a) / n
@@ -629,29 +627,27 @@ Perhitungan akhir dilakukan dengan menerapkan rumus inti trapezoidal rule: menga
     return result
 \end{lstlisting}
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{Hasil Akhir : }
 
-Langkah perhitungan dengan program Python:
+\subsection*{Soal 1: $\int_{0}^{\frac{\pi}{2}} \cos(x)  dx$}
 
-Implementasi untuk fungsi kedua sebetulnya hampir mirip seperti fungsi pertama, perbedaannya terletak di variabel input pada fungsinya. Pertama, import \textit(library) numpy
-\begin{lstlisting}
-import numpy as np
-\end{lstlisting}
+Integral fungsi $\cos(x)$ pada interval $[0, \frac{\pi}{2}]$ memiliki nilai eksak $1.00000000000000$. Berikut hasil aproksimasi dengan metode \textit{Trapezoidal Rule}:
 
-Kemudian, mendeklarasi fungsi untuk melakukan perhitungan metode \textit{Trapezoidal Rule}, fungsi ini menerimpa input :
 \begin{itemize}
-    \item f: fungsi yang akan diintegralkan, yaitu $f(x) = x^2$
-    \item a: batas bawah, yaitu $0$
-    \item b: batas atas, yaitu $1$
-    \item n: jumlah subinterval, yaitu $n = [1, 2, 4]$
+    \item \textbf{$n = 4$}: Nilai $0.987115809972776$ dengan error $1.288420 \times 10^{-2}$
+    \item \textbf{$n = 8$}: Nilai $0.996785171886169$ dengan error $3.214828 \times 10^{-3}$
 \end{itemize}
 
-Perhitungan akhir dilakukan dengan menerapkan rumus inti trapezoidal rule: mengalikan lebar trapezoid dengan penjumlahan nilai fungsi di semua titik, dimana nilai di ujung-ujung interval diberi bobot 0.5 dan nilai di titik-titik tengah diberi bobot penuh, kemudian hasilnya langsung dikembalikan sebagai solusi integral numerik
+\subsection*{Soal 2: $\int_{0}^{1} x^2  dx$}
 
-\begin{lstlisting}
-    result = h * (0.5 * y[0] + np.sum(y[1:-1]) + 0.5 * y[-1])
-    return result
-\end{lstlisting}
+Integral fungsi $x^2$ pada interval $[0, 1]$ memiliki nilai eksak $0.333333333333333$. Berikut hasil aproksimasi dengan metode \textit{Trapezoidal Rule}:
+
+\begin{itemize}
+    \item \textbf{$n = 4$}: Nilai $0.343750000000000$ dengan error $1.041667 \times 10^{-2}$
+    \item \textbf{$n = 8$}: Nilai $0.335937500000000$ dengan error $2.604167 \times 10^{-3}$
+\end{itemize}
+
+Terlihat bahwa dengan penambahan jumlah subinterval $n$, nilai aproksimasi semakin mendekati nilai eksak dan error semakin mengecil.
 
 \subsection*{2.3. Perhitungan Metode Richardson Extrapolation}
 
@@ -838,6 +834,101 @@ Setelah proses adaptive selesai, hasilnya adalah $\text{adaptive2} = 0.333333333
 % GAUSSIAN QUADRATURE
 
 \subsection*{2.6. Perhitungan Metode Gaussian Quadrature}
+
+\textbf{Fungsi 1:} $f(x) = \cos(x)$ untuk interval $[0, \frac{\pi}{2}$]
+
+import \textit{library} numpy
+
+\begin{lstlisting}
+import numpy as np
+\end{lstlisting}
+
+Definisikan fungsi \texttt{gaussian\_quadrature} yang menerima $4$ input
+
+\begin{itemize}
+    \item f: fungsi yang mau diintegralkan, yaitu $f(x) = \cos(x)$
+    \item a: batas bawah integral, yaotu 0
+    \item b: batas atas integral, yaitu $\frac{\pi}{2}$
+    \item n: jumlah titik (kita pake $n = 5$)
+\end{itemize}
+
+\begin{lstlisting}
+def gaussian_quadrature(f, a, b, n=5):
+\end{lstlisting}
+
+kami menggunakan pendekatan selektif dalam menentukan nodes dan weights untuk Gaussian Quadrature di mana ketika n = 5, nilai-nilai nodes dan weights yang telah ditentukan secara matematis dengan presisi tinggi dimasukkan secara eksplisit ke dalam array untuk mengoptimalkan performa komputasi, sementara untuk nilai n lainnya, kami manfaatkan fungsi np.polynomial.legendre.leggauss(n) dari NumPy yang secara otomatis menghasilkan nodes dan weights yang sesuai.
+
+\begin{lstlisting}
+        if n == 5:
+        # 5-point Gauss-Legendre nodes dan weights
+        nodes = np.array([
+            -0.9061798459386640,
+            -0.5384693101056831,
+            0.0,
+            0.5384693101056831,
+            0.9061798459386640
+        ])
+        
+        weights = np.array([
+            0.2369268850561891,
+            0.4786286704993665,
+            0.5688888888888889,
+            0.4786286704993665,
+            0.2369268850561891
+        ])
+        else:
+            # Untuk n lain, gunakan numpy (opsional)
+            nodes, weights = np.polynomial.legendre.leggauss(n)
+\end{lstlisting}
+
+Bagian ini melakukan proses inti dari integrasi numerik dengan \textit{Gaussian Quadrature}, di mana:
+
+\begin{itemize}
+    \item Setiap node yang awalnya berada dalam interval standar $[-1, 1]$ ditransformasikan ke dalam interval target $[a, b]$ menggunakan rumus mapping linear:
+    \[
+    x = 0.5 \times ((b - a) \times \text{nodes}[i] + (a + b))
+    \]
+    
+    \item Fungsi $f(x)$ dievaluasi pada setiap titik transformasi tersebut dan dikalikan dengan \textit{weight} yang bersesuaian
+    
+    \item Hasil evaluasi diakumulasi dalam variabel \texttt{result}
+    
+    \item Hasil akumulasi tersebut diskalakan dengan faktor:
+    \[
+    0.5 \times (b - a)
+    \]
+    yang merepresentasikan setengah dari lebar interval integrasi
+    
+    \item Hasil akhir dikembalikan sebagai output fungsi berupa aproksimasi integral numerik
+\end{itemize}
+
+\begin{lstlisting}
+    result = 0
+    for i in range(len(nodes)):
+        x = 0.5 * ((b - a) * nodes[i] + (a + b))
+        result += weights[i] * f(x)
+    
+    result *= 0.5 * (b - a)
+    return result
+\end{lstlisting}
+
+\subsection*{Soal 1: $\int_{0}^{\frac{\pi}{2}} \cos(x)  dx$} 
+
+Integral fungsi $\cos(x)$ pada interval $[0, \frac{\pi}{2}]$ memiliki nilai eksak $1.00000000000000$. Berikut hasil aproksimasi dengan metode \textit{Gaussian Quadrature}:
+\begin{align*}
+\text{Hasil} &= 1.000000000039565 \\
+\text{Error} &= 3.956592 \times 10^{-11}
+\end{align*}
+Metode memberikan aproksimasi sangat akurat dengan error yang sangat kecil.
+
+\subsection*{Soal 2: $\int_{0}^{1} x^2  dx$}
+
+Integral fungsi $x^2$ pada interval $[0, 1]$ memiliki nilai eksak $0.333333333333333$. Berikut hasil aproksimasi dengan metode \textit{Gaussian Quadrature}:
+\begin{align*}
+\text{Hasil} &= 0.333333333333333 \\
+\text{Error} &= 0.000000 \times 10^{0} = 0
+\end{align*}
+Metode memberikan hasil eksak untuk integral fungsi ini.
 
 [Isi langkah-langkah perhitungan menggunakan metode Gaussian Quadrature]
 
