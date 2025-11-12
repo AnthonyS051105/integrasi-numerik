@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1762956427.89249 "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" "LaporanMetnum.pdf" "LaporanMetnum" 1762956429.36582 0
+["pdflatex"] 1762959037.00792 "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" "LaporanMetnum.pdf" "LaporanMetnum" 1762959037.90335 0
   "/etc/texmf/web2c/texmf.cnf" 1762923399.43979 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" 1762956427.55428 33925 49040a3e56e09d1a433d52c19769fc33 ""
+  "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" 1762959036.79809 37490 d4a512019b1817141485aeac16a9eb7a ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -101,8 +101,8 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1762923447.76836 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1762923513 8214521 3fdf0d7d3bb6a2470b96b0e671073d5f ""
   "HitamPutih.jpg" 1762921246.06843 204709 f9309269345ec411f207d475f5a033aa ""
-  "LaporanMetnum.aux" 1762956429.24832 112 72b1849b8df627d961d6a9a843b1f7c1 "pdflatex"
-  "LaporanMetnum.tex" 1762956427.55428 33925 49040a3e56e09d1a433d52c19769fc33 ""
+  "LaporanMetnum.aux" 1762959037.83606 112 d13841c8901fc5c5605fdbfc04852f95 "pdflatex"
+  "LaporanMetnum.tex" 1762959036.79809 37490 d4a512019b1817141485aeac16a9eb7a ""
   (generated)
   "LaporanMetnum.aux"
   "LaporanMetnum.log"

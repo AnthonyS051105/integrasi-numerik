@@ -592,6 +592,10 @@ I_2 &= \int_{0}^{1} x^2 \, dx \\
 
 \subsection*{2.2. Perhitungan Metode Trapezoidal Rule}
 
+\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+
+\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+
 Langkah perhitungan dengan program Python:
 
 Pertama, impor library numpy agar mempermudah melakukan perhitungan
@@ -661,7 +665,88 @@ Terlihat bahwa dengan penambahan jumlah subinterval $n$, nilai aproksimasi semak
 
 \textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
-[Isi langkah-langkah perhitungan menggunakan metode Romberg Integration]
+Langkah perhitungan dengan program Python:
+
+Impor \textit{Library} NumPy
+\begin{lstlisting}
+import numpy as np
+\end{lstlisting}
+
+Mendeklarasikan fungsi romberg integration dengan menerima input:
+
+\begin{itemize}
+    \item \textbf{f}: fungsi yang akan diintegralkan, fungsi 1 : $f(x) = \cos(x)$ dan fungsi 2 : $f(x) = x^2$
+    \item \textbf{a}: batas bawah integral, yaitu 0 untuk fungsi 1 dan fungsi 2
+    \item \textbf{b}: batas atas integral, yaitu $\frac{\pi}{2}$ untuk fungsi 1 dan $1$ untuk fungsi 2
+    \item \textbf{max\_level=3}: jumlah level ekstrapolasi (opsional, default 3)
+\end{itemize}
+
+\begin{lstlisting}
+def romberg_integration(f, a, b, max_level=3):
+\end{lstlisting}
+
+Kode ini membuat tabel berbentuk matriks nol dengan ukuran $max level \times max level$. Tabel ini akan menyimpan semua perhitungan integral pada berbagai tingkat akurasi. Setiap elemen $R[i,j]$ mewakili aproksimasi integral di level trapezoidal i dan level ekstrapolasi j.
+\begin{lstlisting}
+    R = np.zeros((max_level, max_level))
+\end{lstlisting}
+
+Metode Romberg menggunakan dua loop: pertama menghitung aproksimasi trapezoidal dengan subinterval $2^i$ yang disimpan di $R[i,0]$, lalu loop kedua melakukan ekstrapolasi Richardson dengan rumus $R[i,j] = R[i,j-1] + \frac{R[i,j-1] - R[i-1,j-1]}{4^j - 1}$ untuk meningkatkan akurasi secara eksponensial melalui eliminasi error berurutan.
+\begin{lstlisting}
+    R = np.zeros((max_level, max_level))
+    for i in range(max_level):
+        n = 2**i
+        R[i, 0] = trapezoidal_rule(f, a, b, n)
+    
+        for j in range(1, i + 1):
+            R[i, j] = R[i, j-1] + (R[i, j-1] - R[i-1, j-1]) / (4**j - 1)
+            return R, R[max_level-1, max_level-1]
+\end{lstlisting}
+Tabel Romberg yang dihasilkan berbentuk segitiga, dimana elemen diagonal R[i,i] memberikan aproksimasi terbaik. Nilai di pojok kanan bawah tabel merupakan hasil integral paling akurat yang diperoleh dari metode ini.
+
+\subsection*{Soal 1: $\int_{0}^{\frac{\pi}{2}} \cos(x)  dx$}
+
+Integral fungsi $\cos(x)$ pada interval $[0, \frac{\pi}{2}]$ memiliki nilai eksak $1.00000000000000$.  
+Berikut hasil aproksimasi dengan metode \textit{Romberg Integration}:
+
+\[
+\text{Tabel Romberg:} \quad
+\begin{bmatrix}
+0.78539816 & & \\
+0.94805945 & 1.00227988 & \\
+0.98711580 & 1.00013458 & 0.99999157
+\end{bmatrix}
+\]
+
+\begin{align*}
+\text{Hasil} &= 0.99999157 \\
+\text{Error} &= |1.00000000000000 - 0.99999157| = 8.43 \times 10^{-6}
+\end{align*}
+
+Metode ini menunjukkan konvergensi cepat melalui penyempurnaan nilai pada setiap iterasi tabel Romberg.  
+Nilai pada kolom terakhir mendekati hasil eksak dengan sangat baik, menandakan bahwa estimasi integral semakin akurat pada tingkat iterasi yang lebih tinggi.
+
+\subsection*{Soal 2: $\int_{0}^{1} x^2  dx$}
+
+Integral fungsi $x^2$ pada interval $[0, 1]$ memiliki nilai eksak $0.333333333333333$.  
+Berikut hasil aproksimasi dengan metode \textit{Romberg Integration}:
+
+\[
+\text{Tabel Romberg:} \quad
+\begin{bmatrix}
+0.50000000 & & \\
+0.37500000 & 0.33333333 & \\
+0.34375000 & 0.33333333 & 0.33333333
+\end{bmatrix}
+\]
+
+\begin{align*}
+\text{Hasil} &= 0.33333333 \\
+\text{Error} &= 0
+\end{align*}
+
+Metode \textit{Romberg Integration} memberikan hasil eksak untuk fungsi polinomial sederhana seperti $x^2$.  
+Hal ini terjadi karena proses \textit{Richardson extrapolation} mampu menghilangkan seluruh komponen error pada pendekatan aturan trapezoidal, sehingga hasil konvergen tepat pada nilai integral sebenarnya.
+
 
 \subsection*{2.5. Perhitungan Metode Adaptive Integration}
 
@@ -836,6 +921,8 @@ Setelah proses adaptive selesai, hasilnya adalah $\text{adaptive2} = 0.333333333
 \subsection*{2.6. Perhitungan Metode Gaussian Quadrature}
 
 \textbf{Fungsi 1:} $f(x) = \cos(x)$ untuk interval $[0, \frac{\pi}{2}$]
+
+\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 import \textit{library} numpy
 
