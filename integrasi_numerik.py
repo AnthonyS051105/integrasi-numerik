@@ -21,24 +21,14 @@ def trapezoidal_rule(f, a, b, n):
     return result
 
 
-def richardson_extrapolation(f, a, b, max_level=5):
+def richardson_extrapolation(f, a, b, n):
     """
-    Metode Richardson Extrapolation
-    Menggunakan trapezoidal rule sebagai basis dan melakukan ekstrapolasi
+    Richardson extrapolation tingkat pertama untuk meningkatkan
+    akurasi hasil integrasi trapezoidal.
     """
-    R = np.zeros((max_level, max_level))
-    
-    # Kolom pertama: hasil trapezoidal rule dengan n = 2^i
-    for i in range(max_level):
-        n = 2**i
-        R[i][0] = trapezoidal_rule(f, a, b, n)
-    
-    # Richardson extrapolation untuk kolom-kolom berikutnya
-    for j in range(1, max_level):
-        for i in range(j, max_level):
-            R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1]) / (4**j - 1)
-    
-    return R
+    I_h = trapezoidal_rule(f, a, b, n)
+    I_h2 = trapezoidal_rule(f, a, b, 2 * n)
+    return (4 * I_h2 - I_h) / 3
 
 
 def romberg_integration(f, a, b, max_level=5):
@@ -200,7 +190,7 @@ def main():
     
     # Tampilkan tabel Richardson
     print("Tabel Richardson Extrapolation:")
-    print(f"{'i\\j':<6}", end="")
+    # print(f"{'i\\j':<6}", end="")
     for j in range(5):
         print(f"j={j:<18}", end="")
     print()
@@ -226,7 +216,7 @@ def main():
     
     # Tampilkan tabel Romberg
     print("Tabel Romberg:")
-    print(f"{'i\\j':<6}", end="")
+    # print(f"{'i\\j':<6}", end="")
     for j in range(5):
         print(f"j={j:<18}", end="")
     print()
@@ -334,7 +324,7 @@ def main():
     
     # Tampilkan tabel Richardson
     print("Tabel Richardson Extrapolation:")
-    print(f"{'i\\j':<6}", end="")
+    # print(f"{'i\\j':<6}", end="")
     for j in range(5):
         print(f"j={j:<18}", end="")
     print()
@@ -360,7 +350,7 @@ def main():
     
     # Tampilkan tabel Romberg
     print("Tabel Romberg:")
-    print(f"{'i\\j':<6}", end="")
+    # print(f"{'i\\j':<6}", end="")
     for j in range(5):
         print(f"j={j:<18}", end="")
     print()
