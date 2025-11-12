@@ -1084,16 +1084,10 @@ Dari hasil perhitungan pada kedua fungsi diatas, dapat dilihat bahwa besarnya er
     Metode Romberg menghasilkan nilai aproksimasi yang sangat mendekati nilai eksak, terutama pada fungsi sederhana seperti \( f(x) = x^2 \), di mana hasilnya hampir identik dengan nilai sebenarnya. Namun, pada Tabel 1 terlihat bahwa metode Richardson Extrapolation memberikan hasil yang sedikit lebih akurat. Meskipun demikian, dengan meningkatkan tingkat \textit{Level} pada metode Romberg, akurasi hasil integrasi dapat ditingkatkan lebih jauh sehingga mendekati nilai eksak secara signifikan.
     
         \item \textbf{Adaptive Integration} \\
-    Berdasarkan hasil pada Tabel 1 dan Tabel 2, metode Adaptive Integration menunjukkan tingkat akurasi yang sangat tinggi, dengan error yang hampir tidak terlihat. Pada fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(1.11\times10^{-15}\), sedangkan pada fungsi \( f(x) = x^2 \) nilainya sangat mendekati nol. 
-    Hal ini terjadi karena metode ini bekerja secara adaptif, yaitu membagi interval integrasi menjadi lebih kecil di bagian fungsi yang berubah cepat, dan lebih besar di bagian yang relatif datar. 
-    Dengan cara ini, perhitungan menjadi lebih efisien sekaligus sangat akurat. 
-    Dari hasil yang diperoleh, dapat dikatakan bahwa metode Adaptive Integration mampu memberikan hasil yang sangat presisi tanpa memerlukan banyak titik pembagi seperti pada metode Trapezoidal.
+    Berdasarkan hasil pada Tabel 1 dan Tabel 2, metode Adaptive Integration menunjukkan tingkat akurasi yang sangat tinggi, dengan error yang hampir tidak terlihat. Pada fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(1.11\times10^{-15}\), sedangkan pada fungsi \( f(x) = x^2 \) errornya yakni nol.  Dari hasil yang diperoleh, dapat dikatakan bahwa metode Adaptive Integration mampu memberikan hasil aproksimasi yang sangat presisi.
 
     \item \textbf{Gaussian Quadrature} \\
-    Jika dilihat dari hasil pada kedua tabel, metode Gaussian Quadrature juga memberikan hasil yang sangat akurat. Untuk fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(3.96\times10^{-11}\), sedangkan untuk \( f(x) = x^2 \) nilainya tepat sama dengan hasil eksak (error nol). 
-    Hal ini karena Gaussian Quadrature dirancang untuk dapat menghitung integral polinomial hingga orde \(2n - 1\) dengan hasil yang benar-benar tepat. 
-    Maka tidak heran jika pada fungsi sederhana seperti \(x^2\), hasilnya sempurna. 
-    Meskipun error-nya sedikit lebih besar dibandingkan metode Adaptive Integration pada fungsi trigonometri, secara keseluruhan metode ini tetap sangat efisien dan akurat, terutama untuk fungsi yang halus dan terdefinisi dengan baik.
+    Jika dilihat dari hasil pada kedua tabel, metode Gaussian Quadrature juga memberikan hasil yang sangat akurat. Untuk fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(3.96\times10^{-11}\), sedangkan untuk \( f(x) = x^2 \) nilainya tepat sama dengan hasil eksak. Meskipun error-nya sedikit lebih besar dibandingkn $\cos(x)$ metode Adaptive Integration, secara keseluruhan metode ini tetap dapat memberikan hasil yang sangat akurat.
 
     
 \end{enumerate}
@@ -1106,15 +1100,20 @@ Berdasarkan hasil perhitungan komputasi yang diperoleh dapat diamati metode deng
 Berdasarkan hasil dan analisis perbandingan berbagai metode integrasi numerik yang telah dilakukan, dapat disimpulkan beberapa hal sebagai berikut:
 
 \begin{enumerate}
-    \item Besarnya error sangat bergantung pada orde, parameter, dan karakteristik metode yang digunakan. Metode dengan orde rendah seperti \textit{Trapezoidal Rule} memiliki tingkat error yang lebih besar, namun akurasinya dapat ditingkatkan dengan menambah jumlah subinterval (\(n\)).
-    
-    \item Metode \textit{Richardson Extrapolation} dan \textit{Romberg Integration} mampu meningkatkan akurasi hasil integrasi secara signifikan dibandingkan metode dasar seperti Trapezoidal. Keduanya menggunakan prinsip kombinasi hasil perhitungan sebelumnya untuk memperkirakan nilai yang lebih baik.
-    
-    \item Metode \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} menunjukkan hasil paling akurat dengan error yang sangat kecil hingga mendekati nol. Hal ini karena keduanya memiliki orde konvergensi tinggi dan secara adaptif menyesuaikan titik evaluasi sesuai karakteristik fungsi.
+    \item Besarnya error sangat bergantung pada orde, parameter, dan karakteristik metode yang digunakan. Metode dengan orde rendah seperti \textit{Trapezoidal Rule} memiliki nilai error yang lebih besar, namun akurasinya dapat ditingkatkan dengan menambah jumlah subinterval (\(n\)).
     
     \item Pada fungsi sederhana seperti \( f(x) = x^2 \), hampir semua metode kecuali Trapezoidal memberikan hasil identik dengan nilai eksak. Namun, pada fungsi non-polynomial seperti \( f(x) = \cos(x) \), hanya metode orde tinggi yang mampu menghasilkan error sangat kecil.
     
-    \item Secara keseluruhan, \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} merupakan metode yang paling efisien dan akurat, sementara metode Trapezoidal lebih cocok digunakan untuk perhitungan sederhana atau sebagai dasar pengembangan metode orde lebih tinggi.
+    \item Metode \textit{Richardson Extrapolation} dan \textit{Romberg Integration} mampu meningkatkan akurasi hasil integrasi dibandingkan metode Trapezoidal. Kombinasi hasil perhitungan sebelumnya untuk memperkirakan nilai dapat menghasilkan hasil yang lebih akurat terutama pada metode romberg yang melakukannya secara iterasi terus-menerus.
+    
+    \item Metode \textit{Adaptive Integration}
+    Metode Adaptive Integration menunjukkan hasil paling akurat dengan error yang sangat kecil hingga mendekati nol di kedua kasus.
+
+    \item Metode \textit{Gaussian Quadrature}
+    Metode Gaussian Quadrature menunjukkan hasil yang juga sangat akurat, namun jika dibandingkan dengan Adaptive Integration, Gaussian Quadrature masih menghasilkan error yang lebih tinggi.
+    
+    
+    \item \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} merupakan metode yang paling efisien dan akurat, sementara metode Trapezoidal lebih cocok digunakan untuk perhitungan sederhana atau sebagai dasar pengembangan metode orde lebih tinggi.
 \end{enumerate}
 
 %------------------------------------------------%
