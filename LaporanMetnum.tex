@@ -563,7 +563,7 @@ result = gaussian_quadrature(f, 0, np.pi/2, n=5)
 
 \subsection*{2.1. Perhitungan Integrasi Analitik (Nilai Eksak)}
 
-\textbf{Fungsi 1: } $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+\textbf{Soal 1: } $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
 
 Langkah perhitungan:
 \begin{align*}
@@ -578,7 +578,7 @@ I_1 &= \int_{0}^{\pi/2} \cos(x) \, dx \\
 
 \vspace{0.3cm}
 
-\textbf{Fungsi 2: } $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{Soal 2: } $f(x) = x^2$ pada interval $[0, 1]$
 
 Langkah perhitungan:
 \begin{align*}
@@ -595,9 +595,9 @@ I_2 &= \int_{0}^{1} x^2 \, dx \\
 
 \subsection*{2.2. Perhitungan Metode Trapezoidal Rule}
 
-\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+\textbf{Soal 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{Soal 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 Langkah perhitungan dengan program Python:
 
@@ -609,9 +609,9 @@ import numpy as np
 
 Kemudian, mendeklarasi fungsi untuk melakukan perhitungan metode \textit{Trapezoidal Rule}, fungsi ini menerimpa input : 
 \begin{itemize}
-    \item f: fungsi yang akan diintegralkan, yaitu fungsi 1 : $f(x) = \cos(x)$ dan fungsi 2 : $f(x) = x^2$
-    \item a: batas bawah, yaitu $0$ untuk fungsi 1 dan fungsi 2
-    \item b: batas atas, yaitu $\frac{\pi}{2}$ untuk fungsi 1 dan $1$ untuk fungsi 2
+    \item f: fungsi yang akan diintegralkan, yaitu soal 1: $f(x) = \cos(x)$ dan soal 2: $f(x) = x^2$
+    \item a: batas bawah, yaitu $0$ untuk soal 1 dan soal 2
+    \item b: batas atas, yaitu $\frac{\pi}{2}$ untuk soal 1 dan $1$ untuk soal 2
     \item n: jumlah subinterval, yaitu $n = [4,8]$
 \end{itemize}
 
@@ -662,9 +662,9 @@ Terlihat bahwa dengan penambahan jumlah subinterval $n$, nilai aproksimasi semak
 
 \subsection*{2.3. Perhitungan Metode Richardson Extrapolation}
 
-\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+\textbf{Soal 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{Soal 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 \textbf{Langkah perhitungan dengan program Python:}
 
@@ -676,9 +676,9 @@ import numpy as np
 
 Kemudian, mendeklarasikan fungsi untuk melakukan perhitungan metode \textit{Richardson Extrapolation}. Fungsi ini menerima input:
 \begin{itemize}
-    \item \textbf{f}: fungsi yang akan diintegralkan, yaitu fungsi 1: $f(x) = \cos(x)$ dan fungsi 2: $f(x) = x^2$
-    \item \textbf{a}: batas bawah, yaitu 0 untuk fungsi 1 dan fungsi 2
-    \item \textbf{b}: batas atas, yaitu $\frac{\pi}{2}$ untuk fungsi 1 dan 1 untuk fungsi 2
+    \item \textbf{f}: fungsi yang akan diintegralkan, yaitu soal 1: $f(x) = \cos(x)$ dan soal 2: $f(x) = x^2$
+    \item \textbf{a}: batas bawah, yaitu 0 untuk soal 1 dan soal 2
+    \item \textbf{b}: batas atas, yaitu $\frac{\pi}{2}$ untuk soal 1 dan 1 untuk soal 2
     \item \textbf{n}: jumlah subinterval awal, yaitu $n = 4$
 \end{itemize}
 
@@ -735,9 +735,9 @@ Integral fungsi $x^2$ pada interval $[0, 1]$ memiliki nilai eksak $0.33333333333
 
 \subsection*{2.4. Perhitungan Metode Romberg Integration}
 
-\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+\textbf{Soal 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{Soal 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 Langkah perhitungan dengan program Python:
 
@@ -749,9 +749,9 @@ import numpy as np
 Mendeklarasikan fungsi romberg integration dengan menerima input:
 
 \begin{itemize}
-    \item \textbf{f}: fungsi yang akan diintegralkan, fungsi 1 : $f(x) = \cos(x)$ dan fungsi 2 : $f(x) = x^2$
-    \item \textbf{a}: batas bawah integral, yaitu 0 untuk fungsi 1 dan fungsi 2
-    \item \textbf{b}: batas atas integral, yaitu $\frac{\pi}{2}$ untuk fungsi 1 dan $1$ untuk fungsi 2
+    \item \textbf{f}: fungsi yang akan diintegralkan, soal 1: $f(x) = \cos(x)$ dan soal 2: $f(x) = x^2$
+    \item \textbf{a}: batas bawah integral, yaitu 0 untuk soal 1 dan soal 2
+    \item \textbf{b}: batas atas integral, yaitu $\frac{\pi}{2}$ untuk soal 1 dan $1$ untuk soal 2
     \item \textbf{max\_level=3}: jumlah level ekstrapolasi (opsional, default 3)
 \end{itemize}
 
@@ -802,7 +802,6 @@ Berikut hasil aproksimasi dengan metode \textit{Romberg Integration}:
 
 \includegraphics[width=16cm]{Romberg.png}
 
-Metode ini menunjukkan konvergensi cepat melalui penyempurnaan nilai pada setiap iterasi tabel Romberg.  
 Nilai pada kolom terakhir mendekati hasil eksak dengan sangat baik, menandakan bahwa estimasi integral semakin akurat pada tingkat iterasi yang lebih tinggi.
 
 \subsection*{Soal 2: $\int_{0}^{1} x^2  dx$}
@@ -829,7 +828,6 @@ Berikut hasil aproksimasi dengan metode \textit{Romberg Integration}:
 \includegraphics[width=16cm]{RombergX2.png}
 
 Metode \textit{Romberg Integration} memberikan hasil eksak untuk fungsi polinomial sederhana seperti $x^2$.  
-Hal ini terjadi karena proses \textit{Richardson extrapolation} mampu menghilangkan seluruh komponen error pada pendekatan aturan trapezoidal, sehingga hasil konvergen tepat pada nilai integral sebenarnya.
 
 
 \subsection*{2.5. Perhitungan Metode Adaptive Integration}
@@ -1008,9 +1006,9 @@ Setelah proses adaptive selesai, hasilnya adalah $\text{adaptive2} = 0.333333333
 
 \subsection*{2.6. Perhitungan Metode Gaussian Quadrature}
 
-\textbf{Fungsi 1:} $f(x) = \cos(x)$ untuk interval $[0, \frac{\pi}{2}$]
+\textbf{Soal 1:} $f(x) = \cos(x)$ untuk interval $[0, \frac{\pi}{2}$]
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{Soal 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 import \textit{library} numpy
 

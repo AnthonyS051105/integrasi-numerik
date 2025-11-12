@@ -1,8 +1,20 @@
 # Fdb version 4
-["pdflatex"] 1762982815.46393 "d:/Project/integrasi-numerik/LaporanMetnum.tex" "LaporanMetnum.pdf" "LaporanMetnum" 1762982817.73352 0
+["pdflatex"] 1762985893.64425 "d:/Project/integrasi-numerik/LaporanMetnum.tex" "LaporanMetnum.pdf" "LaporanMetnum" 1762985895.9918 2
+  "Adaptive.png" 0 -1 0 ""
+  "AdaptiveX2.png" 0 -1 0 ""
+  "Gaussian.png" 0 -1 0 ""
+  "GaussianX2.png" 0 -1 0 ""
   "HitamPutih.jpg" 1760797416 204709 07d08bd863c6a02109f0c024751eae3b ""
-  "LaporanMetnum.aux" 1762982817 516 3e382ecfa9a5f243678b743393ee5011 "pdflatex"
-  "LaporanMetnum.tex" 1762982814 43669 05414506d91a0132e6d73896673b56d4 ""
+  "LaporanMetnum.aux" 1762985895 516 41863be51a48e22aa94aa3ffa667152f "pdflatex"
+  "LaporanMetnum.tex" 1762985889 48630 bdbaf970f1f0c75a2d39b4d50fba4ebc ""
+  "Richardson.png" 0 -1 0 ""
+  "RichardsonX2.png" 0 -1 0 ""
+  "Romberg.png" 0 -1 0 ""
+  "RombergTabel.png" 0 -1 0 ""
+  "RombergTabelX2.png" 0 -1 0 ""
+  "RombergX2.png" 0 -1 0 ""
+  "Trapezoidal.png" 0 -1 0 ""
+  "TrapezoidalX2.png" 0 -1 0 ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1732979943 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1732981331 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1732978733 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -105,7 +117,7 @@
   "c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1732995051 5521760 8d14e9f23704d5fbe9a015e30cb48126 ""
   "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1733011706 3343614 befce2985b80968b30fde5bc2ae17717 ""
   "c:/texlive/2024/texmf.cnf" 1732995020 713 e69b156964470283e0530f5060668171 ""
-  "d:/Project/integrasi-numerik/LaporanMetnum.tex" 1762982814 43669 05414506d91a0132e6d73896673b56d4 ""
+  "d:/Project/integrasi-numerik/LaporanMetnum.tex" 1762985889 48630 bdbaf970f1f0c75a2d39b4d50fba4ebc ""
   (generated)
   "LaporanMetnum.aux"
   "LaporanMetnum.log"
