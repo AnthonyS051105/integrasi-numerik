@@ -11,6 +11,9 @@
 \usepackage{times}              % Menggunakan font Times New Roman
 \usepackage{listings}           % Untuk menampilkan kode
 \usepackage{xcolor}             % Untuk pewarnaan syntax
+\usepackage{tabularx}
+\usepackage{float}
+
 
 % Pengaturan listings untuk Python
 \lstset{
@@ -1026,15 +1029,93 @@ Metode memberikan hasil eksak untuk integral fungsi ini.
 
 \subsection*{3.1. Hasil Perhitungan}
 
-[Isi tabel hasil perhitungan dari semua metode]
+Adapun hasil perhitungan komputasi menggunakan metode Trapezoidal, Richardson Extrapolation, Romberg Integration, Adaptive Simpson, dan Gaussian Quadrature disajikan pada tabel di bawah ini. Tabel berikut menunjukkan hasil perhitungan integral numerik menggunakan berbagai metode untuk dua fungsi uji, yaitu \( f(x) = \cos(x) \) dan \( f(x) = x^2 \).
+
+\begin{table}[H]
+\centering
+\caption{Perbandingan hasil integrasi untuk $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$}
+\begin{tabularx}{0.95\textwidth}{|l|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\hline
+\textbf{Metode} & \textbf{Hasil} & \textbf{Error} \\
+\hline
+Trapezoidal (n=4) & 0.98712 & $1.29\times10^{-2}$ \\
+Trapezoidal (n=8) & 0.99679 & $3.21\times10^{-3}$ \\
+Richardson Extrapolation & 1.00001 & $8.30\times10^{-6}$ \\
+Romberg Integration (Level = 3) & 0.99999 & $8.43\times10^{-6}$ \\
+Adaptive Integration (depth=50) & 1.00000 & $1.11\times10^{-15}$ \\
+Gaussian Quadrature (p=5) & 1.00000 & $3.96\times10^{-11}$ \\
+\hline
+\end{tabularx}
+\end{table}
+
+Dari tabel di atas terlihat bahwa metode Trapezoidal memiliki error terbesar, namun semakin kecil ketika jumlah pembagi (\(n\)) meningkat. Metode lainnya yakni Richardson extrapolation, Romberg integration, Adaptive Integration dan Gaussian Quadrature memberikan hasil dengan error sangat kecil dan memiliki nilai yang mendekati nilai eksaknya.
+
+\begin{table}[H]
+\centering
+\caption{Perbandingan hasil integrasi untuk $f(x) = x^2$ pada interval $[0, 1]$}
+\begin{tabularx}{0.95\textwidth}{|l|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\hline
+\textbf{Metode} & \textbf{Hasil} & \textbf{Error} \\
+\hline
+Trapezoidal (n=4) & 0.34375 & $1.04\times10^{-2}$ \\
+Trapezoidal (n=8) & 0.33594 & $2.60\times10^{-3}$ \\
+Richardson Extrapolation & 0.33333 & $0.00$ \\
+Romberg Integration (Level = 3) & 0.33333 & $0.00$ \\
+Adaptive Integration (depth=50) & 0.33333 & $0.00$ \\
+Gaussian Quadrature (p=5) & 0.33333 & $0.00$ \\
+\hline
+\end{tabularx}
+\end{table}
+
+Pada fungsi kuadrat, terlihat bahwa semua metode selain Trapezoidal menghasilkan hasil yang sangat dekat dengan nilai error yang mendekati 0. Walaupun begitu, Akurasi metode Trapezoidal meningkat dengan memperbesar jumlah titik pembagi (\(n\)) seperti yang terlihat pada tabel diatas.
 
 \subsection*{3.2. Perbandingan Error}
 
-[Isi analisis perbandingan error dari semua metode]
+Dari hasil perhitungan pada kedua fungsi diatas, dapat dilihat bahwa besarnya error sangat bergantung pada metode dan parameter seperti jumlah pembagian interval (\(n\)).
+
+\begin{enumerate}
+    \item \textbf{Metode Trapezoidal Rule} \\
+    Pada metode trapezoidal, Error akan menurun ketika jumlah subinterval \(n\) diperbanyak. Hal ini dapat diamati pada Tabel 1 dan Tabel 2 bahwa ketika jumlah n naik maka nilai errornya menurun. Namun jika kita bandingkan dengan metode lainnya, metode trapezoidal ini memiliki error yang paling besar.
+    
+    \item \textbf{Richardson Extrapolation} \\
+       Jika diamati pada kedua tabel diatas, Richardson Extrapolation bisa untuk menurunkan error dengan cukup signifikan baik pada kasus $f(x) = \cos(x)$ ataupun $f(x) = x^2$. Ini menunjukkan bahwa metode Richardson dapat memberikan hasil aproksimasi yang lebih dekat dan error yang lebih kecil.
+
+    \item \textbf{ Romberg Integration} \\
+    Metode Romberg menghasilkan nilai aproksimasi yang sangat mendekati nilai eksak, terutama pada fungsi sederhana seperti \( f(x) = x^2 \), di mana hasilnya hampir identik dengan nilai sebenarnya. Namun, pada Tabel 1 terlihat bahwa metode Richardson Extrapolation memberikan hasil yang sedikit lebih akurat. Meskipun demikian, dengan meningkatkan tingkat \textit{Level} pada metode Romberg, akurasi hasil integrasi dapat ditingkatkan lebih jauh sehingga mendekati nilai eksak secara signifikan.
+    
+        \item \textbf{Adaptive Integration} \\
+    Berdasarkan hasil pada Tabel 1 dan Tabel 2, metode Adaptive Integration menunjukkan tingkat akurasi yang sangat tinggi, dengan error yang hampir tidak terlihat. Pada fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(1.11\times10^{-15}\), sedangkan pada fungsi \( f(x) = x^2 \) nilainya sangat mendekati nol. 
+    Hal ini terjadi karena metode ini bekerja secara adaptif, yaitu membagi interval integrasi menjadi lebih kecil di bagian fungsi yang berubah cepat, dan lebih besar di bagian yang relatif datar. 
+    Dengan cara ini, perhitungan menjadi lebih efisien sekaligus sangat akurat. 
+    Dari hasil yang diperoleh, dapat dikatakan bahwa metode Adaptive Integration mampu memberikan hasil yang sangat presisi tanpa memerlukan banyak titik pembagi seperti pada metode Trapezoidal.
+
+    \item \textbf{Gaussian Quadrature} \\
+    Jika dilihat dari hasil pada kedua tabel, metode Gaussian Quadrature juga memberikan hasil yang sangat akurat. Untuk fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(3.96\times10^{-11}\), sedangkan untuk \( f(x) = x^2 \) nilainya tepat sama dengan hasil eksak (error nol). 
+    Hal ini karena Gaussian Quadrature dirancang untuk dapat menghitung integral polinomial hingga orde \(2n - 1\) dengan hasil yang benar-benar tepat. 
+    Maka tidak heran jika pada fungsi sederhana seperti \(x^2\), hasilnya sempurna. 
+    Meskipun error-nya sedikit lebih besar dibandingkan metode Adaptive Integration pada fungsi trigonometri, secara keseluruhan metode ini tetap sangat efisien dan akurat, terutama untuk fungsi yang halus dan terdefinisi dengan baik.
+
+    
+\end{enumerate}
+
+Berdasarkan hasil perhitungan komputasi yang diperoleh dapat diamati metode dengan orde tinggi seperti Romberg, Adaptive Integration, dan Gaussian Quadrature menunjukkan error yang jauh lebih kecil dibandingkan metode orde rendah seperti Trapezoidal. 
+
 
 \subsection*{3.3. Kesimpulan}
 
-[Isi kesimpulan dari hasil dan perbandingan error]
+Berdasarkan hasil dan analisis perbandingan berbagai metode integrasi numerik yang telah dilakukan, dapat disimpulkan beberapa hal sebagai berikut:
+
+\begin{enumerate}
+    \item Besarnya error sangat bergantung pada orde, parameter, dan karakteristik metode yang digunakan. Metode dengan orde rendah seperti \textit{Trapezoidal Rule} memiliki tingkat error yang lebih besar, namun akurasinya dapat ditingkatkan dengan menambah jumlah subinterval (\(n\)).
+    
+    \item Metode \textit{Richardson Extrapolation} dan \textit{Romberg Integration} mampu meningkatkan akurasi hasil integrasi secara signifikan dibandingkan metode dasar seperti Trapezoidal. Keduanya menggunakan prinsip kombinasi hasil perhitungan sebelumnya untuk memperkirakan nilai yang lebih baik.
+    
+    \item Metode \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} menunjukkan hasil paling akurat dengan error yang sangat kecil hingga mendekati nol. Hal ini karena keduanya memiliki orde konvergensi tinggi dan secara adaptif menyesuaikan titik evaluasi sesuai karakteristik fungsi.
+    
+    \item Pada fungsi sederhana seperti \( f(x) = x^2 \), hampir semua metode kecuali Trapezoidal memberikan hasil identik dengan nilai eksak. Namun, pada fungsi non-polynomial seperti \( f(x) = \cos(x) \), hanya metode orde tinggi yang mampu menghasilkan error sangat kecil.
+    
+    \item Secara keseluruhan, \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} merupakan metode yang paling efisien dan akurat, sementara metode Trapezoidal lebih cocok digunakan untuk perhitungan sederhana atau sebagai dasar pengembangan metode orde lebih tinggi.
+\end{enumerate}
 
 %------------------------------------------------%
 % AKHIR DOKUMEN
