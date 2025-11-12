@@ -13,6 +13,7 @@
 \usepackage{xcolor}             % Untuk pewarnaan syntax
 \usepackage{tabularx}
 \usepackage{float}
+\usepackage{booktabs}
 
 
 % Pengaturan listings untuk Python
@@ -89,7 +90,7 @@
     \vspace{0.1cm}
     \textbf{\large Kelompok:} \\
     \vspace{0.1cm}
-    \textbf{1. Nathanael Satya Saputra (NIM NAEL)} \\
+    \textbf{1. Nathanael Satya Saputra (24/534424/TK/59236)} \\
     \textbf{2. Muhammad Nafal Zakin Rustanto (24/535255/TK/59364)} \\
     \textbf{3. Yohanes Anthony Saputra (NIM ANTHONY)} \\
     \textbf{4. Johannes De Deo Dimas Aryobimo (24/540351/TK/59948)}
@@ -104,9 +105,9 @@
 
 \subsection*{1.1. Integrasi Analitik (Metode Eksak)}
 
-Integrasi analitik adalah metode perhitungan integral menggunakan rumus-rumus kalkulus secara langsung. Metode ini memberikan nilai eksak (tepat) dari suatu integral jika fungsi yang diintegralkan memiliki antiturunan yang dapat ditentukan.
+Integrasi analitik adalah metode perhitungan integral menggunakan rumus-rumus kalkulus secara langsung. Metode ini memberikan nilai eksak yang tepat dari suatu integral jika fungsi yang diintegralkan memiliki antiturunan yang dapat ditentukan.
 
-\textbf{Definisi Integral Tentu:}
+\textbf{Definisi Integral Tentu}
 
 Integral tentu dari fungsi $f(x)$ pada interval $[a, b]$ didefinisikan sebagai:
 \[
@@ -114,43 +115,12 @@ I = \int_{a}^{b} f(x) \, dx = F(b) - F(a)
 \]
 di mana $F(x)$ adalah antiturunan dari $f(x)$, yaitu $F'(x) = f(x)$.
 
-\textbf{Teorema Fundamental Kalkulus:}
+\textbf{Teorema Fundamental Kalkulus}
 
 Jika $f(x)$ kontinu pada interval $[a, b]$ dan $F(x)$ adalah antiturunan dari $f(x)$, maka:
 \[
 \int_{a}^{b} f(x) \, dx = F(x) \Big|_{a}^{b} = F(b) - F(a)
 \]
-
-\textbf{Kegunaan:}
-
-Hasil dari integrasi analitik digunakan sebagai nilai pembanding (nilai eksak) untuk mengevaluasi akurasi metode-metode integrasi numerik. Error dari metode numerik dihitung sebagai selisih absolut antara hasil numerik dengan nilai eksak ini.
-
-\textbf{Algoritma:}
-
-\begin{verbatim}
-1. Tentukan fungsi f(x) dan batas integrasi [a, b]
-2. Cari antiturunan F(x) dari f(x)
-3. Hitung F(b) - F(a)
-4. Hasil adalah nilai eksak integral
-\end{verbatim}
-
-\textbf{Implementasi Python:}
-
-\begin{lstlisting}
-import numpy as np
-
-# Contoh untuk f(x) = cos(x) pada [0, pi/2]
-a = 0
-b = np.pi / 2
-# Antiturunan cos(x) adalah sin(x)
-exact = np.sin(b) - np.sin(a)  # = 1.0
-
-# Contoh untuk f(x) = x^2 pada [0, 1]
-a = 0
-b = 1
-# Antiturunan x^2 adalah x^3/3
-exact = (b**3 / 3) - (a**3 / 3)  # = 1/3
-\end{lstlisting}
 
 \subsection*{1.2. Metode Trapezoidal Rule}
 
@@ -207,59 +177,28 @@ result = trapezoidal_rule(f, 0, np.pi/2, 4)
 
 \subsection*{1.3. Metode Richardson Extrapolation}
 
-\textbf{Richardson Extrapolation} adalah teknik numerik untuk meningkatkan akurasi hasil pendekatan dengan mengkombinasikan beberapa hasil pendekatan yang memiliki ukuran langkah berbeda. Metode ini sangat efektif untuk mempercepat konvergensi hasil numerik.
+Metode \textit{Richardson Extrapolation} merupakan metode numerik yang digunakan untuk meningkatkan akurasi hasil pendekatan integral dengan cara mengkombinasikan dua hasil aproksimasi berbeda. Ide utama dari metode ini adalah memanfaatkan hubungan antara galat (\textit{error}) dan ukuran langkah $h$.
 
-\textbf{Prinsip Dasar:}
+Jika diketahui dua pendekatan integral $I_h$ dan $I_{h/2}$ yang diperoleh dari \textit{Trapezoidal Rule} dengan \textit{step size} $h$ dan $h/2$, maka nilai integral sebenarnya $I$ dapat diestimasi dengan formula:
 
-Misalkan $N(h)$ adalah pendekatan numerik dari nilai eksak $N$ dengan ukuran langkah $h$. Jika error dapat dinyatakan sebagai deret pangkat dari $h$:
 \[
-N(h) = N + a_1 h^p + a_2 h^{2p} + a_3 h^{3p} + \cdots
+I \approx \frac{4I_{h/2} - I_h}{3}
 \]
 
-Maka dengan menggunakan dua pendekatan dengan ukuran langkah berbeda ($h$ dan $\frac{h}{2}$), kita dapat mengeliminasi suku error orde terendah.
-
-\textbf{Rumus Richardson Extrapolation:}
-
-Untuk integrasi numerik menggunakan Trapezoidal Rule, formula Richardson Extrapolation diberikan oleh:
-\[
-R_{i,j} = R_{i,j-1} + \frac{R_{i,j-1} - R_{i-1,j-1}}{4^j - 1}
-\]
-
-di mana:
-\begin{itemize}
-    \item $R_{i,0}$ adalah hasil Trapezoidal Rule dengan $n = 2^i$ subinterval
-    \item $R_{i,j}$ adalah hasil ekstrapolasi pada level $i$ dan kolom $j$
-    \item Setiap kolom $j$ mengeliminasi error orde $O(h^{2j+2})$
-\end{itemize}
-
-\textbf{Tabel Richardson:}
-
-Tabel Richardson memiliki struktur:
-\begin{center}
-\begin{tabular}{c|cccc}
-$i$ & $j=0$ & $j=1$ & $j=2$ & $j=3$ \\ \hline
-0 & $R_{0,0}$ & & & \\
-1 & $R_{1,0}$ & $R_{1,1}$ & & \\
-2 & $R_{2,0}$ & $R_{2,1}$ & $R_{2,2}$ & \\
-3 & $R_{3,0}$ & $R_{3,1}$ & $R_{3,2}$ & $R_{3,3}$ \\
-\end{tabular}
-\end{center}
-
-Nilai pada diagonal utama ($R_{0,0}, R_{1,1}, R_{2,2}, \ldots$) menunjukkan peningkatan akurasi yang signifikan.
+Dengan menggunakan metode ini, akurasi perhitungan dapat meningkat tanpa harus meningkatkan jumlah pembagian secara drastis, sehingga efisien baik dalam waktu komputasi maupun sumber daya.
 
 \textbf{Algoritma:}
 
 \begin{verbatim}
-Input: fungsi f(x), batas a dan b, max_level
-1. Inisialisasi matriks R berukuran max_level x max_level
-2. Untuk i = 0 sampai max_level-1:
-   a. n = 2^i
-   b. R[i][0] = trapezoidal_rule(f, a, b, n)
-3. Untuk j = 1 sampai max_level-1:
-   a. Untuk i = j sampai max_level-1:
-      R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1])/(4^j - 1)
-4. Hasil terbaik adalah R[max_level-1][max_level-1]
-Output: matriks R
+Input: fungsi f(x), batas a dan b, jumlah segmen awal n
+
+1. Hitung I_h = trapezoidal_rule(f, a, b, n)
+2. Hitung I_h2 = trapezoidal_rule(f, a, b, 2 * n)
+3. Lakukan extrapolasi Richardson tingkat pertama:
+I = (4 * I_h2 - I_h) / 3
+4. Kembalikan hasil I sebagai aproksimasi 
+   integral dengan akurasi lebih tinggi
+Output: nilai I hasil extrapolasi
 \end{verbatim}
 
 \textbf{Implementasi Python:}
@@ -267,37 +206,24 @@ Output: matriks R
 \begin{lstlisting}
 import numpy as np
 
-def richardson_extrapolation(f, a, b, max_level=5):
+def richardson_extrapolation(f, a, b, n):
     """
-    Metode Richardson Extrapolation
-    Menggunakan trapezoidal rule sebagai basis dan melakukan 
-    ekstrapolasi
+    Richardson extrapolation tingkat pertama untuk meningkatkan
+    akurasi hasil integrasi trapezoidal.
     """
-    R = np.zeros((max_level, max_level))
-    
-    # Kolom pertama: hasil trapezoidal rule dengan n = 2^i
-    for i in range(max_level):
-        n = 2**i
-        R[i][0] = trapezoidal_rule(f, a, b, n)
-    
-    # Richardson extrapolation untuk kolom-kolom berikutnya
-    for j in range(1, max_level):
-        for i in range(j, max_level):
-            R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1]) / (4**j - 1)
-    
-    return R
+    I_h = trapezoidal_rule(f, a, b, n)
+    I_h2 = trapezoidal_rule(f, a, b, 2 * n)
+    return (4 * I_h2 - I_h) / 3
 
 # Contoh penggunaan
-richardson = richardson_extrapolation(f, 0, np.pi/2, max_level=5)
-result = richardson[4][4]  # Hasil terbaik
+richardson = richardson_extrapolation(f, 0, np.pi/2, n=4)
 \end{lstlisting}
 
 \subsection*{1.4. Metode Romberg Integration}
 
-\textbf{Romberg Integration} adalah metode integrasi numerik yang menggabungkan Trapezoidal Rule dengan Richardson Extrapolation. Perbedaan utama dengan Richardson standar adalah cara menghitung kolom pertama menggunakan teknik rekursif yang lebih efisien.
+\textit{Romberg integration} adalah metode integrasi numerik yang menggabungkan Trapezoidal Rule dengan Richardson Extrapolation. Perbedaan utama dengan Richardson standar adalah cara menghitung kolom pertama menggunakan teknik rekursif yang lebih efisien.
 
-\textbf{Rumus Romberg:}
-
+Adapun rumus dari metode romberg didefinisikan sebagai berikut.
 Kolom pertama dihitung dengan:
 \[
 R_{0,0} = \frac{b-a}{2}[f(a) + f(b)]
@@ -335,31 +261,28 @@ Output: matriks R
 \begin{lstlisting}
 import numpy as np
 
-def romberg_integration(f, a, b, max_level=5):
+def romberg_integration(f, a, b, max_level=3):
     """
-    Metode Romberg Integration
-    Menghasilkan tabel Romberg R[i][j]
+    Melakukan integrasi numerik menggunakan metode Romberg.
+    
+    f          : fungsi yang akan diintegralkan
+    a, b       : batas bawah dan atas integral
+    max_level  : jumlah maksimum level tabel (default 5)
+    
+    Return:
+        R       : tabel Romberg (numpy array)
+        integral: hasil aproksimasi terbaik (elemen kanan bawah)
     """
     R = np.zeros((max_level, max_level))
+    for i in range(max_level):
+        n = 2**i
+        R[i, 0] = trapezoidal_rule(f, a, b, n)
     
-    # R[0][0] menggunakan trapezoidal rule dengan 1 interval
-    R[0][0] = 0.5 * (b - a) * (f(a) + f(b))
-    
-    for i in range(1, max_level):
-        h = (b - a) / (2**i)
-        
-        # Hitung sum untuk titik-titik baru
-        sum_val = 0
-        for k in range(1, 2**(i-1) + 1):
-            sum_val += f(a + (2*k - 1) * h)
-        
-        R[i][0] = 0.5 * R[i-1][0] + h * sum_val
-        
-        # Richardson extrapolation
         for j in range(1, i + 1):
-            R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1]) / (4**j - 1)
+            R[i, j] = R[i, j-1] + (R[i, j-1] - R[i-1, j-1]) / (4**j - 1)
+
     
-    return R
+    return R, R[max_level-1, max_level-1]
 
 # Contoh penggunaan
 romberg = romberg_integration(f, 0, np.pi/2, max_level=5)
@@ -368,9 +291,9 @@ result = romberg[4][4]  # Hasil terbaik
 
 \subsection*{1.5. Metode Adaptive Integration}
 
-\textbf{Adaptive Integration} adalah metode integrasi numerik yang secara otomatis menyesuaikan ukuran interval berdasarkan perilaku fungsi. Metode ini menggunakan Simpson's Rule sebagai basis dan membagi interval menjadi subinterval yang lebih kecil jika diperlukan untuk mencapai toleransi error yang ditentukan.
+\textit{Adaptive integration} adalah metode integrasi numerik yang secara adaptif menyesuaikan ukuran interval berdasarkan fungsi. Metode ini menggunakan Simpson's Rule sebagai basis dan membagi interval menjadi subinterval yang lebih kecil sampai mencapai toleransi error yang ditentukan.
 
-\textbf{Simpson's Rule:}
+Rumus dari simpson's rule pada adaptive integration didefinisikan sebagai berikut.
 
 Untuk interval $[a, b]$:
 \[
@@ -378,7 +301,7 @@ S = \frac{h}{6}[f(a) + 4f(c) + f(b)]
 \]
 di mana $c = \frac{a+b}{2}$ dan $h = b - a$.
 
-\textbf{Kriteria Adaptif:}
+Adapun kriteria adaptif sendiri yakni sebagai berikut.
 
 Interval dibagi dua jika:
 \[
@@ -460,23 +383,22 @@ result = adaptive_simpson(f, 0, np.pi/2)
 
 \subsection*{1.6. Metode Gaussian Quadrature}
 
-\textbf{Gaussian Quadrature} adalah metode integrasi numerik yang menggunakan titik-titik sampling optimal (nodes) dan bobot (weights) yang telah ditentukan secara matematis untuk memberikan akurasi maksimal dengan jumlah evaluasi fungsi minimal.
+\textit{Gaussian quadrature} adalah metode integrasi numerik yang menggunakan titik-titik sampling optimal \textit{nodes} dan bobot \textit{weights} yang telah ditentukan secara matematis untuk memberikan akurasi maksimal dengan jumlah evaluasi fungsi minimal.
 
-\textbf{Rumus Umum:}
-
+Rumus dari metode \textit{Gaussian quadrature} yakni sebagai berikut.
 Untuk interval $[-1, 1]$:
 \[
 \int_{-1}^{1} f(x) \, dx \approx \sum_{i=1}^{n} w_i f(x_i)
 \]
 di mana $x_i$ adalah nodes (Gauss-Legendre) dan $w_i$ adalah weights.
 
-\textbf{Transformasi ke Interval $[a, b]$:}
-
-Untuk interval $[a, b]$, gunakan transformasi:
+Transformasi ke Interval $[a, b]$ untuk interval $[a, b]$, menggunakan transformasi:
 \[
 x = \frac{1}{2}[(b-a)t + (a+b)]
 \]
-sehingga:
+
+sehingga,
+
 \[
 \int_{a}^{b} f(x) \, dx = \frac{b-a}{2} \int_{-1}^{1} f\left(\frac{1}{2}[(b-a)t + (a+b)]\right) dt
 \]
@@ -484,7 +406,7 @@ sehingga:
 \approx \frac{b-a}{2} \sum_{i=1}^{n} w_i f\left(\frac{1}{2}[(b-a)x_i + (a+b)]\right)
 \]
 
-\textbf{Nodes dan Weights untuk 5-point Gauss-Legendre:}
+\textbf{Nodes dan Weights untuk 5-point Gauss-Legendre}:
 
 \begin{center}
 \begin{tabular}{c|c}
@@ -540,7 +462,7 @@ def gaussian_quadrature(f, a, b, n=5):
             0.2369268850561891
         ])
     else:
-        # Untuk n lain, gunakan numpy (opsional)
+        # Untuk n lainnya
         nodes, weights = np.polynomial.legendre.leggauss(n)
     
     # Transformasi dari [-1, 1] ke [a, b]
@@ -925,7 +847,7 @@ Integral fungsi $x^2$ pada interval $[0, 1]$ memiliki nilai eksak $0.33333333333
 
 \textbf{Fungsi 1:} $f(x) = \cos(x)$ untuk interval $[0, \frac{\pi}{2}$]
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{F            ungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 import \textit{library} numpy
 
@@ -1084,16 +1006,10 @@ Dari hasil perhitungan pada kedua fungsi diatas, dapat dilihat bahwa besarnya er
     Metode Romberg menghasilkan nilai aproksimasi yang sangat mendekati nilai eksak, terutama pada fungsi sederhana seperti \( f(x) = x^2 \), di mana hasilnya hampir identik dengan nilai sebenarnya. Namun, pada Tabel 1 terlihat bahwa metode Richardson Extrapolation memberikan hasil yang sedikit lebih akurat. Meskipun demikian, dengan meningkatkan tingkat \textit{Level} pada metode Romberg, akurasi hasil integrasi dapat ditingkatkan lebih jauh sehingga mendekati nilai eksak secara signifikan.
     
         \item \textbf{Adaptive Integration} \\
-    Berdasarkan hasil pada Tabel 1 dan Tabel 2, metode Adaptive Integration menunjukkan tingkat akurasi yang sangat tinggi, dengan error yang hampir tidak terlihat. Pada fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(1.11\times10^{-15}\), sedangkan pada fungsi \( f(x) = x^2 \) nilainya sangat mendekati nol. 
-    Hal ini terjadi karena metode ini bekerja secara adaptif, yaitu membagi interval integrasi menjadi lebih kecil di bagian fungsi yang berubah cepat, dan lebih besar di bagian yang relatif datar. 
-    Dengan cara ini, perhitungan menjadi lebih efisien sekaligus sangat akurat. 
-    Dari hasil yang diperoleh, dapat dikatakan bahwa metode Adaptive Integration mampu memberikan hasil yang sangat presisi tanpa memerlukan banyak titik pembagi seperti pada metode Trapezoidal.
+    Berdasarkan hasil pada Tabel 1 dan Tabel 2, metode Adaptive Integration menunjukkan tingkat akurasi yang sangat tinggi, dengan error yang hampir tidak terlihat. Pada fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(1.11\times10^{-15}\), sedangkan pada fungsi \( f(x) = x^2 \) errornya yakni nol.  Dari hasil yang diperoleh, dapat dikatakan bahwa metode Adaptive Integration mampu memberikan hasil aproksimasi yang sangat presisi.
 
     \item \textbf{Gaussian Quadrature} \\
-    Jika dilihat dari hasil pada kedua tabel, metode Gaussian Quadrature juga memberikan hasil yang sangat akurat. Untuk fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(3.96\times10^{-11}\), sedangkan untuk \( f(x) = x^2 \) nilainya tepat sama dengan hasil eksak (error nol). 
-    Hal ini karena Gaussian Quadrature dirancang untuk dapat menghitung integral polinomial hingga orde \(2n - 1\) dengan hasil yang benar-benar tepat. 
-    Maka tidak heran jika pada fungsi sederhana seperti \(x^2\), hasilnya sempurna. 
-    Meskipun error-nya sedikit lebih besar dibandingkan metode Adaptive Integration pada fungsi trigonometri, secara keseluruhan metode ini tetap sangat efisien dan akurat, terutama untuk fungsi yang halus dan terdefinisi dengan baik.
+    Jika dilihat dari hasil pada kedua tabel, metode Gaussian Quadrature juga memberikan hasil yang sangat akurat. Untuk fungsi \( f(x) = \cos(x) \), error-nya hanya sekitar \(3.96\times10^{-11}\), sedangkan untuk \( f(x) = x^2 \) nilainya tepat sama dengan hasil eksak. Meskipun error-nya sedikit lebih besar dibandingkn $\cos(x)$ metode Adaptive Integration, secara keseluruhan metode ini tetap dapat memberikan hasil yang sangat akurat.
 
     
 \end{enumerate}
@@ -1106,15 +1022,20 @@ Berdasarkan hasil perhitungan komputasi yang diperoleh dapat diamati metode deng
 Berdasarkan hasil dan analisis perbandingan berbagai metode integrasi numerik yang telah dilakukan, dapat disimpulkan beberapa hal sebagai berikut:
 
 \begin{enumerate}
-    \item Besarnya error sangat bergantung pada orde, parameter, dan karakteristik metode yang digunakan. Metode dengan orde rendah seperti \textit{Trapezoidal Rule} memiliki tingkat error yang lebih besar, namun akurasinya dapat ditingkatkan dengan menambah jumlah subinterval (\(n\)).
-    
-    \item Metode \textit{Richardson Extrapolation} dan \textit{Romberg Integration} mampu meningkatkan akurasi hasil integrasi secara signifikan dibandingkan metode dasar seperti Trapezoidal. Keduanya menggunakan prinsip kombinasi hasil perhitungan sebelumnya untuk memperkirakan nilai yang lebih baik.
-    
-    \item Metode \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} menunjukkan hasil paling akurat dengan error yang sangat kecil hingga mendekati nol. Hal ini karena keduanya memiliki orde konvergensi tinggi dan secara adaptif menyesuaikan titik evaluasi sesuai karakteristik fungsi.
+    \item Besarnya error sangat bergantung pada orde, parameter, dan karakteristik metode yang digunakan. Metode dengan orde rendah seperti \textit{Trapezoidal Rule} memiliki nilai error yang lebih besar, namun akurasinya dapat ditingkatkan dengan menambah jumlah subinterval (\(n\)).
     
     \item Pada fungsi sederhana seperti \( f(x) = x^2 \), hampir semua metode kecuali Trapezoidal memberikan hasil identik dengan nilai eksak. Namun, pada fungsi non-polynomial seperti \( f(x) = \cos(x) \), hanya metode orde tinggi yang mampu menghasilkan error sangat kecil.
     
-    \item Secara keseluruhan, \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} merupakan metode yang paling efisien dan akurat, sementara metode Trapezoidal lebih cocok digunakan untuk perhitungan sederhana atau sebagai dasar pengembangan metode orde lebih tinggi.
+    \item Metode \textit{Richardson Extrapolation} dan \textit{Romberg Integration} mampu meningkatkan akurasi hasil integrasi dibandingkan metode Trapezoidal. Kombinasi hasil perhitungan sebelumnya untuk memperkirakan nilai dapat menghasilkan hasil yang lebih akurat terutama pada metode romberg yang melakukannya secara iterasi terus-menerus.
+    
+    \item Metode \textit{Adaptive Integration}
+    Metode Adaptive Integration menunjukkan hasil paling akurat dengan error yang sangat kecil hingga mendekati nol di kedua kasus.
+
+    \item Metode \textit{Gaussian Quadrature}
+    Metode Gaussian Quadrature menunjukkan hasil yang juga sangat akurat, namun jika dibandingkan dengan Adaptive Integration, Gaussian Quadrature masih menghasilkan error yang lebih tinggi.
+    
+    
+    \item \textit{Adaptive Integration} dan \textit{Gaussian Quadrature} merupakan metode yang paling efisien dan akurat, sementara metode Trapezoidal lebih cocok digunakan untuk perhitungan sederhana atau sebagai dasar pengembangan metode orde lebih tinggi.
 \end{enumerate}
 
 %------------------------------------------------%
