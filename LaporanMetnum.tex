@@ -753,7 +753,9 @@ Hal ini terjadi karena proses \textit{Richardson extrapolation} mampu menghilang
 
 \subsection*{2.5. Perhitungan Metode Adaptive Integration}
 
-\textbf{Soal 1: } Hitung $\int_{0}^{\pi/2} \cos(x) \, dx$ menggunakan Adaptive Simpson
+\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+
+\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 \textbf{Penjelasan Metode Simpson:}
 
@@ -761,7 +763,7 @@ Simpson's Rule adalah metode integrasi numerik yang mengaproksimasi fungsi denga
 \[
 S = \frac{h}{6}[f(a) + 4f(c) + f(b)]
 \]
-di mana $h = b - a$ adalah lebar interval. Rumus ini memberikan hasil eksak untuk polinomial berderajat $\leq 3$, sehingga sangat akurat untuk fungsi yang smooth seperti $\cos(x)$.
+di mana $h = b - a$ adalah lebar interval. Rumus ini memberikan hasil eksak untuk polinomial berderajat $\leq 3$, sehingga sangat akurat untuk fungsi yang smooth.
 
 \textbf{Konsep Adaptive (Adaptif):}
 
@@ -769,7 +771,17 @@ Metode adaptive berarti algoritma secara otomatis membagi interval menjadi subin
 
 \vspace{0.3cm}
 
-\textbf{Implementasi Python:}
+Langkah perhitungan dengan program Python:
+
+Pertama, impor library numpy untuk perhitungan numerik:
+
+\begin{lstlisting}
+import numpy as np
+\end{lstlisting}
+
+\textbf{Implementasi Python untuk Fungsi 1: } $f(x) = \cos(x)$ pada $[0, \frac{\pi}{2}]$
+
+\textbf{Implementasi Python untuk Fungsi 1: } $f(x) = \cos(x)$ pada $[0, \frac{\pi}{2}]$
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 a1 = 0
@@ -778,7 +790,7 @@ tol = 1e-10
 max_depth = 50
 \end{lstlisting}
 
-Inisialisasi parameter integral. Pada kasus ini $a = 0$ adalah batas bawah, $b = \frac{\pi}{2} \approx 1.5708$ adalah batas atas, $\text{tol} = 10^{-10}$ adalah toleransi error yang sangat kecil, dan $\text{max\_depth} = 50$ adalah kedalaman rekursi maksimal untuk mencegah infinite loop.
+Inisialisasi parameter integral untuk fungsi 1. Pada kasus ini $a = 0$ adalah batas bawah, $b = \frac{\pi}{2} \approx 1.5708$ adalah batas atas, $\text{tol} = 10^{-10}$ adalah toleransi error yang sangat kecil, dan $\text{max\_depth} = 50$ adalah kedalaman rekursi maksimal.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 c = (a + b) / 2
@@ -787,7 +799,7 @@ fb = f(b)  # f(pi/2) = cos(pi/2) = 0.0
 fc = f(c)  # f(pi/4) = cos(pi/4) = 0.707106...
 \end{lstlisting}
 
-Hitung titik tengah dan nilai fungsi pada tiga titik penting. Pada kasus ini: $c = \frac{0 + \pi/2}{2} = \frac{\pi}{4} \approx 0.7854$. Nilai fungsi: $f(0) = \cos(0) = 1.0$, $f(\pi/2) = \cos(\pi/2) = 0.0$, dan $f(\pi/4) = \cos(\pi/4) = \frac{\sqrt{2}}{2} \approx 0.7071$.
+Hitung titik tengah dan nilai fungsi pada tiga titik penting. Untuk fungsi $\cos(x)$: $c = \frac{\pi}{4} \approx 0.7854$, dengan $f(0) = 1.0$, $f(\pi/2) = 0.0$, dan $f(\pi/4) \approx 0.7071$.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 def simpson_rule(f, a, b):
@@ -798,19 +810,18 @@ def simpson_rule(f, a, b):
 S = simpson_rule(f, a, b)
 \end{lstlisting}
 
-Fungsi Simpson's Rule untuk interval $[a, b]$. Pada kasus ini: $h = \frac{\pi}{2} - 0 = \frac{\pi}{2} \approx 1.5708$, sehingga $S = \frac{1.5708}{6}[1.0 + 4(0.7071) + 0.0] = 0.2618 \times 3.8284 \approx 1.0023$. Ini adalah aproksimasi awal dengan error sekitar 0.0023 dari nilai eksak 1.0.
+Fungsi Simpson's Rule untuk interval $[a, b]$. Untuk $\cos(x)$: $h = \frac{\pi}{2} \approx 1.5708$, sehingga $S \approx 1.0023$ (aproksimasi awal dengan error sekitar 0.0023 dari nilai eksak 1.0).
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 def adaptive_aux(f, a, b, tol, S, fa, fb, fc, depth):
     c = (a + b) / 2
-    d = (a + c) / 2  # titik tengah interval kiri
-    e = (c + b) / 2  # titik tengah interval kanan
-    
+    d = (a + c) / 2
+    e = (c + b) / 2
     fd = f(d)
     fe = f(e)
 \end{lstlisting}
 
-Fungsi rekursif adaptive dimulai dengan menghitung 2 titik tambahan untuk membagi interval menjadi dua bagian. Pada iterasi pertama (depth=50): $d = \frac{0 + \pi/4}{2} = \frac{\pi}{8} \approx 0.3927$ dan $e = \frac{\pi/4 + \pi/2}{2} = \frac{3\pi}{8} \approx 1.1781$. Nilai fungsi: $f(d) = \cos(\pi/8) \approx 0.9239$ dan $f(e) = \cos(3\pi/8) \approx 0.3827$.
+Fungsi rekursif adaptive menghitung 2 titik tambahan untuk membagi interval. Untuk $\cos(x)$ pada iterasi pertama: $d = \frac{\pi}{8} \approx 0.3927$ dan $e = \frac{3\pi}{8} \approx 1.1781$, dengan $f(d) \approx 0.9239$ dan $f(e) \approx 0.3827$.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
     Sleft = (c - a) / 6 * (fa + 4 * fd + fc)
@@ -818,35 +829,25 @@ Fungsi rekursif adaptive dimulai dengan menghitung 2 titik tambahan untuk membag
     S2 = Sleft + Sright
 \end{lstlisting}
 
-Hitung Simpson's Rule untuk kedua subinterval. Interval kiri $[0, \pi/4]$: $S_{\text{left}} = \frac{\pi/4}{6}[1.0 + 4(0.9239) + 0.7071] \approx 0.5236$. Interval kanan $[\pi/4, \pi/2]$: $S_{\text{right}} = \frac{\pi/4}{6}[0.7071 + 4(0.3827) + 0.0] \approx 0.4767$. Total: $S_2 = 0.5236 + 0.4767 = 1.0003$.
+Hitung Simpson's Rule untuk kedua subinterval. Untuk $\cos(x)$: $S_{\text{left}} \approx 0.5236$, $S_{\text{right}} \approx 0.4767$, total $S_2 \approx 1.0003$.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
     if depth <= 0 or abs(S2 - S) <= 15 * tol:
         return S2 + (S2 - S) / 15
 \end{lstlisting}
 
-Cek kriteria konvergensi. Pada iterasi pertama: $|S_2 - S| = |1.0003 - 1.0023| = 0.0020$ dan $15 \times \text{tol} = 15 \times 10^{-10} = 1.5 \times 10^{-9}$. Karena $0.0020 > 1.5 \times 10^{-9}$, kondisi tidak terpenuhi, sehingga belum konvergen. Jika sudah konvergen, kembalikan hasil dengan koreksi Richardson: $S_2 + \frac{S_2 - S}{15}$.
+Cek kriteria konvergensi. Untuk $\cos(x)$: $|S_2 - S| = 0.0020$ dan $15 \times \text{tol} = 1.5 \times 10^{-9}$. Karena $0.0020 > 1.5 \times 10^{-9}$, belum konvergen. Jika sudah konvergen, kembalikan hasil dengan koreksi Richardson.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
     return (adaptive_aux(f, a, c, tol/2, Sleft, fa, fc, fd, depth-1) +
             adaptive_aux(f, c, b, tol/2, Sright, fc, fb, fe, depth-1))
 \end{lstlisting}
 
-Jika belum konvergen, lakukan rekursi pada kedua subinterval. Proses ini terus berlanjut sampai kriteria konvergensi terpenuhi atau kedalaman maksimal tercapai. Setiap kali rekursi: toleransi dibagi 2 ($\text{tol}/2$), kedalaman berkurang 1 ($\text{depth} - 1$), dan interval dipecah menjadi lebih kecil.
+Jika belum konvergen, lakukan rekursi pada kedua subinterval. Proses ini terus berlanjut dengan toleransi dibagi 2 dan kedalaman berkurang 1 sampai konvergensi tercapai.
 
 \vspace{0.3cm}
 
-\textbf{Hasil Akhir:}
-
-Setelah rekursi selesai, hasilnya adalah $\text{adaptive1} = 1.000000000000000$ (15 digit presisi) dengan error $\approx 10^{-16}$ (machine precision), jauh lebih kecil dari toleransi $10^{-10}$.
-
-\textbf{Keunggulan Metode:} Otomatis menyesuaikan ukuran interval berdasarkan kompleksitas fungsi, menghasilkan akurasi tinggi dengan evaluasi fungsi minimal, dan untuk fungsi smooth seperti $\cos(x)$, konvergensi sangat cepat dengan hasil hampir sempurna (error $\sim 10^{-16}$).
-
-\vspace{0.5cm}
-
-\textbf{Soal 2: } Hitung $\int_{0}^{1} x^2 \, dx$ menggunakan Adaptive Simpson
-
-\textbf{Implementasi Python:}
+\textbf{Implementasi Python untuk Fungsi 2: } $f(x) = x^2$ pada $[0, 1]$
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 a2 = 0
@@ -855,7 +856,7 @@ tol = 1e-10
 max_depth = 50
 \end{lstlisting}
 
-Inisialisasi parameter integral. Pada kasus ini $a = 0$ adalah batas bawah, $b = 1$ adalah batas atas, $\text{tol} = 10^{-10}$ adalah toleransi error yang sangat kecil, dan $\text{max\_depth} = 50$ adalah kedalaman rekursi maksimal.
+Inisialisasi parameter integral untuk fungsi 2. Pada kasus ini $a = 0$ adalah batas bawah, $b = 1$ adalah batas atas, $\text{tol} = 10^{-10}$ adalah toleransi error, dan $\text{max\_depth} = 50$ adalah kedalaman rekursi maksimal.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 c = (a + b) / 2
@@ -864,30 +865,24 @@ fb = f(b)  # f(1) = 1^2 = 1.0
 fc = f(c)  # f(0.5) = 0.5^2 = 0.25
 \end{lstlisting}
 
-Hitung titik tengah dan nilai fungsi pada tiga titik penting. Pada kasus ini: $c = \frac{0 + 1}{2} = 0.5$. Nilai fungsi: $f(0) = 0^2 = 0.0$, $f(1) = 1^2 = 1.0$, dan $f(0.5) = (0.5)^2 = 0.25$.
+Hitung titik tengah dan nilai fungsi pada tiga titik penting. Untuk fungsi $x^2$: $c = 0.5$, dengan $f(0) = 0.0$, $f(1) = 1.0$, dan $f(0.5) = 0.25$.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
-def simpson_rule(f, a, b):
-    c = (a + b) / 2
-    h = b - a
-    return (h / 6) * (f(a) + 4 * f(c) + f(b))
-
 S = simpson_rule(f, a, b)
 \end{lstlisting}
 
-Fungsi Simpson's Rule untuk interval $[a, b]$. Pada kasus ini: $h = 1 - 0 = 1$, sehingga $S = \frac{1}{6}[0.0 + 4(0.25) + 1.0] = \frac{1}{6}[0.0 + 1.0 + 1.0] = \frac{2.0}{6} = 0.333333...$. Ini adalah aproksimasi awal yang sudah sangat akurat karena $f(x) = x^2$ adalah fungsi polinomial kuadrat, dan Simpson's Rule eksak untuk polinomial derajat $\leq 3$.
+Fungsi Simpson's Rule untuk interval $[0, 1]$. Untuk $x^2$: $h = 1$, sehingga $S = \frac{1}{6}[0.0 + 4(0.25) + 1.0] = 0.333333...$ (sudah sangat akurat karena Simpson's Rule eksak untuk polinomial kuadrat).
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
 def adaptive_aux(f, a, b, tol, S, fa, fb, fc, depth):
     c = (a + b) / 2
-    d = (a + c) / 2  # titik tengah interval kiri
-    e = (c + b) / 2  # titik tengah interval kanan
-    
+    d = (a + c) / 2
+    e = (c + b) / 2
     fd = f(d)
     fe = f(e)
 \end{lstlisting}
 
-Fungsi rekursif adaptive dimulai dengan menghitung 2 titik tambahan untuk membagi interval menjadi dua bagian. Pada iterasi pertama (depth=50): $d = \frac{0 + 0.5}{2} = 0.25$ dan $e = \frac{0.5 + 1}{2} = 0.75$. Nilai fungsi: $f(d) = (0.25)^2 = 0.0625$ dan $f(e) = (0.75)^2 = 0.5625$.
+Fungsi rekursif adaptive menghitung 2 titik tambahan. Untuk $x^2$ pada iterasi pertama: $d = 0.25$ dan $e = 0.75$, dengan $f(d) = 0.0625$ dan $f(e) = 0.5625$.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
     Sleft = (c - a) / 6 * (fa + 4 * fd + fc)
@@ -895,29 +890,34 @@ Fungsi rekursif adaptive dimulai dengan menghitung 2 titik tambahan untuk membag
     S2 = Sleft + Sright
 \end{lstlisting}
 
-Hitung Simpson's Rule untuk kedua subinterval. Interval kiri $[0, 0.5]$: $S_{\text{left}} = \frac{0.5}{6}[0.0 + 4(0.0625) + 0.25] = \frac{0.5}{6}[0.5] = 0.041666...$. Interval kanan $[0.5, 1]$: $S_{\text{right}} = \frac{0.5}{6}[0.25 + 4(0.5625) + 1.0] = \frac{0.5}{6}[3.5] = 0.291666...$. Total: $S_2 = 0.041666... + 0.291666... = 0.333333...$.
+Hitung Simpson's Rule untuk kedua subinterval. Untuk $x^2$: $S_{\text{left}} = 0.041666...$, $S_{\text{right}} = 0.291666...$, total $S_2 = 0.333333...$.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
     if depth <= 0 or abs(S2 - S) <= 15 * tol:
         return S2 + (S2 - S) / 15
 \end{lstlisting}
 
-Cek kriteria konvergensi. Pada iterasi pertama: $|S_2 - S| = |0.333333... - 0.333333...| \approx 0$ (sangat kecil, mendekati machine precision) dan $15 \times \text{tol} = 15 \times 10^{-10} = 1.5 \times 10^{-9}$. Karena selisihnya sudah sangat kecil (praktis 0), kondisi terpenuhi dan algoritma langsung konvergen pada iterasi pertama. Kembalikan hasil dengan koreksi Richardson: $S_2 + \frac{S_2 - S}{15}$.
-
-\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
-    return (adaptive_aux(f, a, c, tol/2, Sleft, fa, fc, fd, depth-1) +
-            adaptive_aux(f, c, b, tol/2, Sright, fc, fb, fe, depth-1))
-\end{lstlisting}
-
-Jika belum konvergen, lakukan rekursi pada kedua subinterval. Namun untuk fungsi $f(x) = x^2$, karena Simpson's Rule sudah memberikan hasil eksak untuk polinomial kuadrat, rekursi biasanya langsung terhenti pada iterasi pertama.
+Cek kriteria konvergensi. Untuk $x^2$: $|S_2 - S| \approx 0$ (sangat kecil) dan $15 \times \text{tol} = 1.5 \times 10^{-9}$. Karena selisihnya sudah sangat kecil, kondisi terpenuhi dan algoritma langsung konvergen pada iterasi pertama.
 
 \vspace{0.3cm}
 
 \textbf{Hasil Akhir:}
 
-Setelah proses adaptive selesai, hasilnya adalah $\text{adaptive2} = 0.333333333333333$ (15 digit presisi) dengan error $\approx 10^{-16}$ (machine precision). Nilai eksak adalah $\frac{1}{3} = 0.333333...$
+\subsection*{Fungsi 1: $\int_{0}^{\frac{\pi}{2}} \cos(x)  dx$}
 
-\textbf{Catatan Penting:} Untuk fungsi polinomial seperti $x^2$, metode Adaptive Simpson sangat efisien karena Simpson's Rule sudah memberikan hasil yang sangat akurat (bahkan eksak secara teoritis) sejak iterasi awal, sehingga algoritma cepat konvergen tanpa perlu banyak pembagian interval.
+Integral fungsi $\cos(x)$ pada interval $[0, \frac{\pi}{2}]$ memiliki nilai eksak $1.000000000000000$. Hasil aproksimasi dengan metode Adaptive Simpson:
+
+\begin{itemize}
+    \item \textbf{Adaptive Simpson}: Nilai $1.000000000000000$ dengan error $0.000000 \times 10^{0}$
+\end{itemize}
+
+\subsection*{Fungsi 2: $\int_{0}^{1} x^2  dx$}
+
+Integral fungsi $x^2$ pada interval $[0, 1]$ memiliki nilai eksak $0.333333333333333$. Hasil aproksimasi dengan metode Adaptive Simpson:
+
+\begin{itemize}
+    \item \textbf{Adaptive Simpson}: Nilai $0.333333333333333$ dengan error $0.000000 \times 10^{0}$
+\end{itemize}
 
 % GAUSSIAN QUADRATURE
 
