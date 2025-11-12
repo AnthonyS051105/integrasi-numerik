@@ -588,15 +588,82 @@ I_2 &= \int_{0}^{1} x^2 \, dx \\
 
 \textbf{Nilai Eksak: } $I_2 = 0.333333...$ atau $\frac{1}{3}$
 
+% TRAPEZOIDAL RULE
+
 \subsection*{2.2. Perhitungan Metode Trapezoidal Rule}
 
-[Isi langkah-langkah perhitungan menggunakan metode Trapezoidal Rule]
+\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+
+Langkah perhitungan dengan program Python:
+
+Pertama, impor library numpy agar mempermudah melakukan perhitungan
+
+\begin{lstlisting}
+import numpy as np
+\end{lstlisting}
+
+Kemudian, mendeklarasi fungsi untuk melakukan perhitungan metode \textit{Trapezoidal Rule}, fungsi ini menerimpa input : 
+\begin{itemize}
+    \item f: fungsi yang akan diintegralkan, yaitu $f(x) = \cos(x)$
+    \item a: batas bawah, yaitu $0$
+    \item b: batas atas, yaitu $\frac{\pi}{2}$
+    \item n: jumlah subinterval, yaitu $n = [1, 2, 4]$
+\end{itemize}
+
+\begin{lstlisting}
+def trapezoidal_rule(f, a, b, n):
+\end{lstlisting}
+
+Fungsi ini bekerja dengan tiga langkah utama: menentukan lebar trapezoid, menghasilkan grid titik evaluasi, dan mengukur tinggi fungsi di setiap titik - membentuk fondasi untuk perhitungan integral numerik yang akurat.
+
+\begin{lstlisting}
+    h = (b - a) / n
+    x = np.linspace(a, b, n + 1)
+    y = f(x)
+\end{lstlisting}
+
+Perhitungan akhir dilakukan dengan menerapkan rumus inti trapezoidal rule: mengalikan lebar trapezoid dengan penjumlahan nilai fungsi di semua titik, dimana nilai di ujung-ujung interval diberi bobot 0.5 dan nilai di titik-titik tengah diberi bobot penuh, kemudian hasilnya langsung dikembalikan sebagai solusi integral numerik
+
+\begin{lstlisting}
+    result = h * (0.5 * y[0] + np.sum(y[1:-1]) + 0.5 * y[-1])
+    return result
+\end{lstlisting}
+
+\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+
+Langkah perhitungan dengan program Python:
+
+Implementasi untuk fungsi kedua sebetulnya hampir mirip seperti fungsi pertama, perbedaannya terletak di variabel input pada fungsinya. Pertama, import \textit(library) numpy
+\begin{lstlisting}
+import numpy as np
+\end{lstlisting}
+
+Kemudian, mendeklarasi fungsi untuk melakukan perhitungan metode \textit{Trapezoidal Rule}, fungsi ini menerimpa input :
+\begin{itemize}
+    \item f: fungsi yang akan diintegralkan, yaitu $f(x) = x^2$
+    \item a: batas bawah, yaitu $0$
+    \item b: batas atas, yaitu $1$
+    \item n: jumlah subinterval, yaitu $n = [1, 2, 4]$
+\end{itemize}
+
+Perhitungan akhir dilakukan dengan menerapkan rumus inti trapezoidal rule: mengalikan lebar trapezoid dengan penjumlahan nilai fungsi di semua titik, dimana nilai di ujung-ujung interval diberi bobot 0.5 dan nilai di titik-titik tengah diberi bobot penuh, kemudian hasilnya langsung dikembalikan sebagai solusi integral numerik
+
+\begin{lstlisting}
+    result = h * (0.5 * y[0] + np.sum(y[1:-1]) + 0.5 * y[-1])
+    return result
+\end{lstlisting}
 
 \subsection*{2.3. Perhitungan Metode Richardson Extrapolation}
 
 [Isi langkah-langkah perhitungan menggunakan metode Richardson Extrapolation]
 
+% ROMBERG INTEGRATION
+
 \subsection*{2.4. Perhitungan Metode Romberg Integration}
+
+\textbf{Fungsi 1:} $f(x) = \cos(x)$ pada interval $[0, \frac{\pi}{2}]$
+
+\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 [Isi langkah-langkah perhitungan menggunakan metode Romberg Integration]
 
