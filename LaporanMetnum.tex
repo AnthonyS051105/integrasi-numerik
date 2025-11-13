@@ -13,6 +13,7 @@
 \usepackage{xcolor}             % Untuk pewarnaan syntax
 \usepackage{tabularx}
 \usepackage{float}
+\usepackage{booktabs}
 
 
 % Pengaturan listings untuk Python
@@ -104,9 +105,9 @@
 
 \subsection*{1.1. Integrasi Analitik (Metode Eksak)}
 
-Integrasi analitik adalah metode perhitungan integral menggunakan rumus-rumus kalkulus secara langsung. Metode ini memberikan nilai eksak (tepat) dari suatu integral jika fungsi yang diintegralkan memiliki antiturunan yang dapat ditentukan.
+Integrasi analitik adalah metode perhitungan integral menggunakan rumus-rumus kalkulus secara langsung. Metode ini memberikan nilai eksak yang tepat dari suatu integral jika fungsi yang diintegralkan memiliki antiturunan yang dapat ditentukan.
 
-\textbf{Definisi Integral Tentu:}
+\textbf{Definisi Integral Tentu}
 
 Integral tentu dari fungsi $f(x)$ pada interval $[a, b]$ didefinisikan sebagai:
 \[
@@ -114,43 +115,12 @@ I = \int_{a}^{b} f(x) \, dx = F(b) - F(a)
 \]
 di mana $F(x)$ adalah antiturunan dari $f(x)$, yaitu $F'(x) = f(x)$.
 
-\textbf{Teorema Fundamental Kalkulus:}
+\textbf{Teorema Fundamental Kalkulus}
 
 Jika $f(x)$ kontinu pada interval $[a, b]$ dan $F(x)$ adalah antiturunan dari $f(x)$, maka:
 \[
 \int_{a}^{b} f(x) \, dx = F(x) \Big|_{a}^{b} = F(b) - F(a)
 \]
-
-\textbf{Kegunaan:}
-
-Hasil dari integrasi analitik digunakan sebagai nilai pembanding (nilai eksak) untuk mengevaluasi akurasi metode-metode integrasi numerik. Error dari metode numerik dihitung sebagai selisih absolut antara hasil numerik dengan nilai eksak ini.
-
-\textbf{Algoritma:}
-
-\begin{verbatim}
-1. Tentukan fungsi f(x) dan batas integrasi [a, b]
-2. Cari antiturunan F(x) dari f(x)
-3. Hitung F(b) - F(a)
-4. Hasil adalah nilai eksak integral
-\end{verbatim}
-
-\textbf{Implementasi Python:}
-
-\begin{lstlisting}
-import numpy as np
-
-# Contoh untuk f(x) = cos(x) pada [0, pi/2]
-a = 0
-b = np.pi / 2
-# Antiturunan cos(x) adalah sin(x)
-exact = np.sin(b) - np.sin(a)  # = 1.0
-
-# Contoh untuk f(x) = x^2 pada [0, 1]
-a = 0
-b = 1
-# Antiturunan x^2 adalah x^3/3
-exact = (b**3 / 3) - (a**3 / 3)  # = 1/3
-\end{lstlisting}
 
 \subsection*{1.2. Metode Trapezoidal Rule}
 
@@ -207,7 +177,7 @@ result = trapezoidal_rule(f, 0, np.pi/2, 4)
 
 \subsection*{1.3. Metode Richardson Extrapolation}
 
-Metode \textit{Richardson Extrapolation} merupakan metode numerik yang digunakan untuk meningkatkan akurasi hasil pendekatan integral dengan cara mengkombinasikan dua hasil aproksimasi berbeda. Ide utama dari metode ini adalah memanfaatkan hubungan antara galat (\textit{error}) dan ukuran langkah $h$, di mana galat pada metode integrasi seperti \textit{Trapezoidal Rule} umumnya berbanding lurus dengan pangkat tertentu dari $h$, misalnya $O(h^2)$.
+Metode \textit{Richardson Extrapolation} merupakan metode numerik yang digunakan untuk meningkatkan akurasi hasil pendekatan integral dengan cara mengkombinasikan dua hasil aproksimasi berbeda. Ide utama dari metode ini adalah memanfaatkan hubungan antara galat (\textit{error}) dan ukuran langkah $h$.
 
 Jika diketahui dua pendekatan integral $I_h$ dan $I_{h/2}$ yang diperoleh dari \textit{Trapezoidal Rule} dengan \textit{step size} $h$ dan $h/2$, maka nilai integral sebenarnya $I$ dapat diestimasi dengan formula:
 
@@ -215,7 +185,7 @@ Jika diketahui dua pendekatan integral $I_h$ dan $I_{h/2}$ yang diperoleh dari \
 I \approx \frac{4I_{h/2} - I_h}{3}
 \]
 
-Dengan menggunakan metode ini, akurasi perhitungan meningkat secara signifikan tanpa harus meningkatkan jumlah pembagian secara drastis, sehingga efisien baik dalam waktu komputasi maupun sumber daya.
+Dengan menggunakan metode ini, akurasi perhitungan dapat meningkat tanpa harus meningkatkan jumlah pembagian secara drastis, sehingga efisien baik dalam waktu komputasi maupun sumber daya.
 
 \textbf{Algoritma:}
 
@@ -251,10 +221,9 @@ richardson = richardson_extrapolation(f, 0, np.pi/2, n=4)
 
 \subsection*{1.4. Metode Romberg Integration}
 
-\textbf{Romberg Integration} adalah metode integrasi numerik yang menggabungkan Trapezoidal Rule dengan Richardson Extrapolation. Perbedaan utama dengan Richardson standar adalah cara menghitung kolom pertama menggunakan teknik rekursif yang lebih efisien.
+\textit{Romberg integration} adalah metode integrasi numerik yang menggabungkan Trapezoidal Rule dengan Richardson Extrapolation. Perbedaan utama dengan Richardson standar adalah cara menghitung kolom pertama menggunakan teknik rekursif yang lebih efisien.
 
-\textbf{Rumus Romberg:}
-
+Adapun rumus dari metode romberg didefinisikan sebagai berikut.
 Kolom pertama dihitung dengan:
 \[
 R_{0,0} = \frac{b-a}{2}[f(a) + f(b)]
@@ -325,9 +294,9 @@ result = romberg[4][4]  # Hasil terbaik
 
 \subsection*{1.5. Metode Adaptive Integration}
 
-\textbf{Adaptive Integration} adalah metode integrasi numerik yang secara otomatis menyesuaikan ukuran interval berdasarkan perilaku fungsi. Metode ini menggunakan Simpson's Rule sebagai basis dan membagi interval menjadi subinterval yang lebih kecil jika diperlukan untuk mencapai toleransi error yang ditentukan.
+\textit{Adaptive integration} adalah metode integrasi numerik yang secara adaptif menyesuaikan ukuran interval berdasarkan fungsi. Metode ini menggunakan Simpson's Rule sebagai basis dan membagi interval menjadi subinterval yang lebih kecil sampai mencapai toleransi error yang ditentukan.
 
-\textbf{Simpson's Rule:}
+Rumus dari simpson's rule pada adaptive integration didefinisikan sebagai berikut.
 
 Untuk interval $[a, b]$:
 \[
@@ -335,7 +304,7 @@ S = \frac{h}{6}[f(a) + 4f(c) + f(b)]
 \]
 di mana $c = \frac{a+b}{2}$ dan $h = b - a$.
 
-\textbf{Kriteria Adaptif:}
+Adapun kriteria adaptif sendiri yakni sebagai berikut.
 
 Interval dibagi dua jika:
 \[
@@ -417,23 +386,22 @@ result = adaptive_simpson(f, 0, np.pi/2)
 
 \subsection*{1.6. Metode Gaussian Quadrature}
 
-\textbf{Gaussian Quadrature} adalah metode integrasi numerik yang menggunakan titik-titik sampling optimal (nodes) dan bobot (weights) yang telah ditentukan secara matematis untuk memberikan akurasi maksimal dengan jumlah evaluasi fungsi minimal.
+\textit{Gaussian quadrature} adalah metode integrasi numerik yang menggunakan titik-titik sampling optimal \textit{nodes} dan bobot \textit{weights} yang telah ditentukan secara matematis untuk memberikan akurasi maksimal dengan jumlah evaluasi fungsi minimal.
 
-\textbf{Rumus Umum:}
-
+Rumus dari metode \textit{Gaussian quadrature} yakni sebagai berikut.
 Untuk interval $[-1, 1]$:
 \[
 \int_{-1}^{1} f(x) \, dx \approx \sum_{i=1}^{n} w_i f(x_i)
 \]
 di mana $x_i$ adalah nodes (Gauss-Legendre) dan $w_i$ adalah weights.
 
-\textbf{Transformasi ke Interval $[a, b]$:}
-
-Untuk interval $[a, b]$, gunakan transformasi:
+Transformasi ke Interval $[a, b]$ untuk interval $[a, b]$, menggunakan transformasi:
 \[
 x = \frac{1}{2}[(b-a)t + (a+b)]
 \]
-sehingga:
+
+sehingga,
+
 \[
 \int_{a}^{b} f(x) \, dx = \frac{b-a}{2} \int_{-1}^{1} f\left(\frac{1}{2}[(b-a)t + (a+b)]\right) dt
 \]
@@ -441,7 +409,7 @@ sehingga:
 \approx \frac{b-a}{2} \sum_{i=1}^{n} w_i f\left(\frac{1}{2}[(b-a)x_i + (a+b)]\right)
 \]
 
-\textbf{Nodes dan Weights untuk 5-point Gauss-Legendre:}
+\textbf{Nodes dan Weights untuk 5-point Gauss-Legendre}:
 
 \begin{center}
 \begin{tabular}{c|c}
@@ -874,7 +842,7 @@ Jika belum konvergen, lakukan rekursi pada kedua subinterval. Namun untuk fungsi
 
 Setelah proses adaptive selesai, hasilnya adalah $\text{adaptive2} = 0.333333333333333$ (15 digit presisi) dengan error $\approx 10^{-16}$ (machine precision). Nilai eksak adalah $\frac{1}{3} = 0.333333...$
 
-\textbf{Catatan Penting:} Untuk fungsi polinomial seperti $x^2$, metode Adaptive Simpson sangat efisien karena Simpson's Rule sudah memberikan hasil yang sangat akurat (bahkan eksak secara teoritis) sejak iterasi awal, sehingga algoritma cepat konvergen tanpa perlu banyak pembagian interval.
+Untuk fungsi polinomial seperti $x^2$, metode Adaptive Simpson sangat efisien karena Simpson's Rule sudah memberikan hasil yang sangat akurat sejak iterasi awal, sehingga algoritma cepat konvergen tanpa perlu banyak pembagian interval.
 
 % GAUSSIAN QUADRATURE
 
