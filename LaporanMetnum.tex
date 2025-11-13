@@ -292,31 +292,28 @@ Output: matriks R
 \begin{lstlisting}
 import numpy as np
 
-def romberg_integration(f, a, b, max_level=5):
+def romberg_integration(f, a, b, max_level=3):
     """
-    Metode Romberg Integration
-    Menghasilkan tabel Romberg R[i][j]
+    Melakukan integrasi numerik menggunakan metode Romberg.
+    
+    f          : fungsi yang akan diintegralkan
+    a, b       : batas bawah dan atas integral
+    max_level  : jumlah maksimum level tabel (default 5)
+    
+    Return:
+        R       : tabel Romberg (numpy array)
+        integral: hasil aproksimasi terbaik (elemen kanan bawah)
     """
     R = np.zeros((max_level, max_level))
+    for i in range(max_level):
+        n = 2**i
+        R[i, 0] = trapezoidal_rule(f, a, b, n)
     
-    # R[0][0] menggunakan trapezoidal rule dengan 1 interval
-    R[0][0] = 0.5 * (b - a) * (f(a) + f(b))
-    
-    for i in range(1, max_level):
-        h = (b - a) / (2**i)
-        
-        # Hitung sum untuk titik-titik baru
-        sum_val = 0
-        for k in range(1, 2**(i-1) + 1):
-            sum_val += f(a + (2*k - 1) * h)
-        
-        R[i][0] = 0.5 * R[i-1][0] + h * sum_val
-        
-        # Richardson extrapolation
         for j in range(1, i + 1):
-            R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1]) / (4**j - 1)
+            R[i, j] = R[i, j-1] + (R[i, j-1] - R[i-1, j-1]) / (4**j - 1)
+
     
-    return R
+    return R, R[max_level-1, max_level-1]
 
 # Contoh penggunaan
 romberg = romberg_integration(f, 0, np.pi/2, max_level=5)
