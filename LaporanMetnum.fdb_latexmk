@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1762959037.00792 "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" "LaporanMetnum.pdf" "LaporanMetnum" 1762959037.90335 0
+["pdflatex"] 1763006951.62913 "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" "LaporanMetnum.pdf" "LaporanMetnum" 1763006953.18198 0
   "/etc/texmf/web2c/texmf.cnf" 1762923399.43979 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" 1762959036.79809 37490 d4a512019b1817141485aeac16a9eb7a ""
+  "/home/bimo/Documents/numetnum/integrasi-numerik/LaporanMetnum.tex" 1763006951.25833 43016 0ef1b2970fb9bf8757ff2063229d78a3 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -73,6 +73,7 @@
   "/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo" 1705352648 8449 f07039d8e4e89f21078d9b5137579bfc ""
   "/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1601931149 46845 3b58f70c6e861a13d927bff09d35ecbc ""
+  "/usr/share/texlive/texmf-dist/tex/latex/float/float.sty" 1137110151 6749 16d2656a1984957e674b149555f1ea1d ""
   "/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty" 1578002852 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1459978653 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1465944070 1224 978390e9c2234eab29404bc21b268d1e ""
@@ -95,14 +96,16 @@
   "/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1137110629 961 15056f4a61917ceed3a44e4ac11fcc52 ""
   "/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty" 1586716065 856 8e0e5c8cca7b18e0400f97f5a2b90a99 ""
   "/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd" 1137110629 619 96f56dc5d1ef1fe1121f1cfeec70ee0c ""
+  "/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty" 1698869629 12667 e4b5eb11e4b7239e6c8a52bbe074a6c6 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty" 1698869629 7147 d45559f8a31b8c53ada0640516660003 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1700082560 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1762923447.76836 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1762923513 8214521 3fdf0d7d3bb6a2470b96b0e671073d5f ""
   "HitamPutih.jpg" 1762921246.06843 204709 f9309269345ec411f207d475f5a033aa ""
-  "LaporanMetnum.aux" 1762959037.83606 112 d13841c8901fc5c5605fdbfc04852f95 "pdflatex"
-  "LaporanMetnum.tex" 1762959036.79809 37490 d4a512019b1817141485aeac16a9eb7a ""
+  "LaporanMetnum.aux" 1763006953.05586 478 9a03dd129e8d63ebd2329cca3bbd6a3a "pdflatex"
+  "LaporanMetnum.tex" 1763006951.25833 43016 0ef1b2970fb9bf8757ff2063229d78a3 ""
   (generated)
   "LaporanMetnum.aux"
   "LaporanMetnum.log"
