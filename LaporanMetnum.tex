@@ -207,59 +207,28 @@ result = trapezoidal_rule(f, 0, np.pi/2, 4)
 
 \subsection*{1.3. Metode Richardson Extrapolation}
 
-\textbf{Richardson Extrapolation} adalah teknik numerik untuk meningkatkan akurasi hasil pendekatan dengan mengkombinasikan beberapa hasil pendekatan yang memiliki ukuran langkah berbeda. Metode ini sangat efektif untuk mempercepat konvergensi hasil numerik.
+Metode \textit{Richardson Extrapolation} merupakan metode numerik yang digunakan untuk meningkatkan akurasi hasil pendekatan integral dengan cara mengkombinasikan dua hasil aproksimasi berbeda. Ide utama dari metode ini adalah memanfaatkan hubungan antara galat (\textit{error}) dan ukuran langkah $h$, di mana galat pada metode integrasi seperti \textit{Trapezoidal Rule} umumnya berbanding lurus dengan pangkat tertentu dari $h$, misalnya $O(h^2)$.
 
-\textbf{Prinsip Dasar:}
+Jika diketahui dua pendekatan integral $I_h$ dan $I_{h/2}$ yang diperoleh dari \textit{Trapezoidal Rule} dengan \textit{step size} $h$ dan $h/2$, maka nilai integral sebenarnya $I$ dapat diestimasi dengan formula:
 
-Misalkan $N(h)$ adalah pendekatan numerik dari nilai eksak $N$ dengan ukuran langkah $h$. Jika error dapat dinyatakan sebagai deret pangkat dari $h$:
 \[
-N(h) = N + a_1 h^p + a_2 h^{2p} + a_3 h^{3p} + \cdots
+I \approx \frac{4I_{h/2} - I_h}{3}
 \]
 
-Maka dengan menggunakan dua pendekatan dengan ukuran langkah berbeda ($h$ dan $\frac{h}{2}$), kita dapat mengeliminasi suku error orde terendah.
-
-\textbf{Rumus Richardson Extrapolation:}
-
-Untuk integrasi numerik menggunakan Trapezoidal Rule, formula Richardson Extrapolation diberikan oleh:
-\[
-R_{i,j} = R_{i,j-1} + \frac{R_{i,j-1} - R_{i-1,j-1}}{4^j - 1}
-\]
-
-di mana:
-\begin{itemize}
-    \item $R_{i,0}$ adalah hasil Trapezoidal Rule dengan $n = 2^i$ subinterval
-    \item $R_{i,j}$ adalah hasil ekstrapolasi pada level $i$ dan kolom $j$
-    \item Setiap kolom $j$ mengeliminasi error orde $O(h^{2j+2})$
-\end{itemize}
-
-\textbf{Tabel Richardson:}
-
-Tabel Richardson memiliki struktur:
-\begin{center}
-\begin{tabular}{c|cccc}
-$i$ & $j=0$ & $j=1$ & $j=2$ & $j=3$ \\ \hline
-0 & $R_{0,0}$ & & & \\
-1 & $R_{1,0}$ & $R_{1,1}$ & & \\
-2 & $R_{2,0}$ & $R_{2,1}$ & $R_{2,2}$ & \\
-3 & $R_{3,0}$ & $R_{3,1}$ & $R_{3,2}$ & $R_{3,3}$ \\
-\end{tabular}
-\end{center}
-
-Nilai pada diagonal utama ($R_{0,0}, R_{1,1}, R_{2,2}, \ldots$) menunjukkan peningkatan akurasi yang signifikan.
+Dengan menggunakan metode ini, akurasi perhitungan meningkat secara signifikan tanpa harus meningkatkan jumlah pembagian secara drastis, sehingga efisien baik dalam waktu komputasi maupun sumber daya.
 
 \textbf{Algoritma:}
 
 \begin{verbatim}
-Input: fungsi f(x), batas a dan b, max_level
-1. Inisialisasi matriks R berukuran max_level x max_level
-2. Untuk i = 0 sampai max_level-1:
-   a. n = 2^i
-   b. R[i][0] = trapezoidal_rule(f, a, b, n)
-3. Untuk j = 1 sampai max_level-1:
-   a. Untuk i = j sampai max_level-1:
-      R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1])/(4^j - 1)
-4. Hasil terbaik adalah R[max_level-1][max_level-1]
-Output: matriks R
+Input: fungsi f(x), batas a dan b, jumlah segmen awal n
+
+1. Hitung I_h = trapezoidal_rule(f, a, b, n)
+2. Hitung I_h2 = trapezoidal_rule(f, a, b, 2 * n)
+3. Lakukan extrapolasi Richardson tingkat pertama:
+I = (4 * I_h2 - I_h) / 3
+4. Kembalikan hasil I sebagai aproksimasi 
+   integral dengan akurasi lebih tinggi
+Output: nilai I hasil extrapolasi
 \end{verbatim}
 
 \textbf{Implementasi Python:}
@@ -267,29 +236,17 @@ Output: matriks R
 \begin{lstlisting}
 import numpy as np
 
-def richardson_extrapolation(f, a, b, max_level=5):
+def richardson_extrapolation(f, a, b, n):
     """
-    Metode Richardson Extrapolation
-    Menggunakan trapezoidal rule sebagai basis dan melakukan 
-    ekstrapolasi
+    Richardson extrapolation tingkat pertama untuk meningkatkan
+    akurasi hasil integrasi trapezoidal.
     """
-    R = np.zeros((max_level, max_level))
-    
-    # Kolom pertama: hasil trapezoidal rule dengan n = 2^i
-    for i in range(max_level):
-        n = 2**i
-        R[i][0] = trapezoidal_rule(f, a, b, n)
-    
-    # Richardson extrapolation untuk kolom-kolom berikutnya
-    for j in range(1, max_level):
-        for i in range(j, max_level):
-            R[i][j] = R[i][j-1] + (R[i][j-1] - R[i-1][j-1]) / (4**j - 1)
-    
-    return R
+    I_h = trapezoidal_rule(f, a, b, n)
+    I_h2 = trapezoidal_rule(f, a, b, 2 * n)
+    return (4 * I_h2 - I_h) / 3
 
 # Contoh penggunaan
-richardson = richardson_extrapolation(f, 0, np.pi/2, max_level=5)
-result = richardson[4][4]  # Hasil terbaik
+richardson = richardson_extrapolation(f, 0, np.pi/2, n=4)
 \end{lstlisting}
 
 \subsection*{1.4. Metode Romberg Integration}
@@ -925,7 +882,7 @@ Setelah proses adaptive selesai, hasilnya adalah $\text{adaptive2} = 0.333333333
 
 \textbf{Fungsi 1:} $f(x) = \cos(x)$ untuk interval $[0, \frac{\pi}{2}$]
 
-\textbf{Fungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
+\textbf{F            ungsi 2:} $f(x) = x^2$ pada interval $[0, 1]$
 
 import \textit{library} numpy
 
