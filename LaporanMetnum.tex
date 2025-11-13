@@ -497,7 +497,7 @@ def gaussian_quadrature(f, a, b, n=5):
             0.2369268850561891
         ])
     else:
-        # Untuk n lain, gunakan numpy (opsional)
+        # Untuk n lainnya
         nodes, weights = np.polynomial.legendre.leggauss(n)
     
     # Transformasi dari [-1, 1] ke [a, b]
