@@ -121,10 +121,6 @@ Jika $f(x)$ kontinu pada interval $[a, b]$ dan $F(x)$ adalah antiturunan dari $f
 \int_{a}^{b} f(x) \, dx = F(x) \Big|_{a}^{b} = F(b) - F(a)
 \]
 
-\textbf{Kegunaan:}
-
-Hasil dari integrasi analitik digunakan sebagai nilai pembanding (nilai eksak) untuk mengevaluasi akurasi metode-metode integrasi numerik. Error dari metode numerik dihitung sebagai selisih absolut antara hasil numerik dengan nilai eksak ini.
-
 \textbf{Algoritma:}
 
 \begin{verbatim}
@@ -920,8 +916,6 @@ Jika belum konvergen, lakukan rekursi pada kedua subinterval. Proses ini terus b
 \includegraphics[width=16cm]{Adaptive.png}
 
 Setelah rekursi selesai, hasilnya adalah $\text{adaptive1} = 1.000000000000000$ (15 digit presisi) dengan error $\approx 10^{-16}$ (machine precision), jauh lebih kecil dari toleransi $10^{-10}$.
-
-\textbf{Keunggulan Metode:} Otomatis menyesuaikan ukuran interval berdasarkan kompleksitas fungsi, menghasilkan akurasi tinggi dengan evaluasi fungsi minimal, dan untuk fungsi smooth seperti $\cos(x)$, konvergensi sangat cepat dengan hasil hampir sempurna (error $\sim 10^{-16}$).
 
 \vspace{0.5cm}
 
